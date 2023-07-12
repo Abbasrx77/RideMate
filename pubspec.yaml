@@ -103,3 +103,5 @@ flutter:
     - assets/main_logo.png
     - assets/logo_in_app.png
     - assets/splash_screen_logo.png
+    - assets/conducteur_icon_image.png
+    - assets/passager_icon_image.png

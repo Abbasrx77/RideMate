@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
+import 'package:ridemate/views/conducteur/choix_profil.dart';
 import 'package:ridemate/views/conducteur/error_dialog.dart';
 import 'dart:convert';
 import 'package:ridemate/views/passager/inscription.dart';
@@ -110,11 +111,7 @@ class _ConnexionPageWidgetState extends State<ConnexionPageWidget> {
                   SizedBox(height: deviceHeight * 0.04),
                   GestureDetector(
                     onTap: (){
-                      ///
-                      ///
-                      ///
-                      /// DOIT REDIRIGER VERS LA PAGE DE CHOIX
-                      Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const InscriptionPassagerPageWidget(), settings: null));
+                      Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ChoixProfilPage(), settings: null));
                     },
                     child: RichText(
                       textAlign: TextAlign.center,

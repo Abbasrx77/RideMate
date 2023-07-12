@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/routes/routes_constants.dart';
+import 'package:ridemate/views/conducteur/choix_profil.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
 import 'package:ridemate/views/passager/inscription.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
