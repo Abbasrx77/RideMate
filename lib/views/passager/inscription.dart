@@ -20,6 +20,7 @@ class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageW
   //TEXT EDITING CONTROLLER
   final TextEditingController _matricule = TextEditingController();
   final TextEditingController _email = TextEditingController();
+  final TextEditingController _zone = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _password_retype = TextEditingController();
 
@@ -34,6 +35,7 @@ class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageW
   void dispose() {
     _matricule.dispose();
     _email.dispose();
+    _zone.dispose();
     _password.dispose();
     _password_retype.dispose();
     super.dispose();
@@ -105,6 +107,28 @@ class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageW
                     },
                     decoration: InputDecoration(
                       labelText: 'Email',
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: deviceHeight * 0.02),
+                  TextFormField(
+                    controller: _zone,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    validator: (value){
+                      if(value == null || value.isEmpty){
+                        return "Veuillez entrer la zone";
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Zone Ex: Cotonou,Akpakpa',
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
@@ -192,15 +216,14 @@ class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageW
 
                       final matricule = _matricule.text.toString();
                       final email = _email.text.toLowerCase();
+                      final zone = _zone.text.toLowerCase();
                       final password = _password.text.toString();
 
 
-                      //Mettre en place la connexion
-                      //Faire le lien entre les pages d'inscription et de connexion
-                      //Faire le SplashScreen
                       Map<String,String> body = {
                         'matricule':matricule,
                         'email':email,
+                        'zone':zone,
                         'fonction': 'passager',
                         'password':password
                       };

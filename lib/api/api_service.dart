@@ -8,8 +8,8 @@ class ApiService{
   //L'url utilisé ici n'est pas localhost mais l'adresse IP de l'ordinateur sur lequel tourne le serveur laravel
   //L'ordinateur est connecté à un réseau wifi et fait un partage de connexion au smartphone
   //Veuillez remplacer l'adresse IP de l'ordinateur par "localhost:8000" ou l'adresse du serveur concerné
-  final String baseUrl = "http://192.168.88.235:8000/api";
-  final storage = new FlutterSecureStorage();
+  final String baseUrl = "http://192.168.88.244:8000/api";
+  final storage = const FlutterSecureStorage();
 
 
   /*Future<String?> getAuthToken(String email, String password) async {
@@ -45,12 +45,25 @@ class ApiService{
     return response;
   }
 
+  Future<http.Response> publier(String endpoint, {required Map<String, String?> body}) async {
+    final token = await storage.read(key: 'auth_token');
+    final response = await http.post(
+      Uri.parse('$baseUrl/$endpoint'),
+      headers: { 'Authorization': 'Bearer $token' , 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: body,
+    );
+    return response;
+  }
+
   Future<http.Response> connexion({required Map<String, String> body}) async {
     final response = await http.post(
       Uri.parse('$baseUrl/connexion'),
       headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
       body: body,
     );
+    var data = jsonDecode(response.body);
+    String token = data[1];
+    await storage.write(key: 'auth_token', value: token);
     return response;
   }
 

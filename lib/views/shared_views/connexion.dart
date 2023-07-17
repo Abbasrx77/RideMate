@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
+import 'package:ridemate/views/conducteur/choix_position_depart.dart';
 import 'package:ridemate/views/conducteur/choix_profil.dart';
 import 'package:ridemate/views/conducteur/error_dialog.dart';
 import 'dart:convert';
@@ -141,8 +142,6 @@ class _ConnexionPageWidgetState extends State<ConnexionPageWidget> {
                       final password = _password.text.toString();
 
 
-                      //Faire le lien entre les pages d'inscription et de connexion
-                      //Faire le SplashScreen
                       Map<String,String> body = {
                         'email':email,
                         'password':password
@@ -158,7 +157,8 @@ class _ConnexionPageWidgetState extends State<ConnexionPageWidget> {
                             var data = jsonDecode(response.body);
                             String fonction = data[0];
                             if(fonction == 'conducteur'){
-                              //REDIRECTION Conducteur
+
+                              Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ChoixPositionDepart(), settings: null));
 
                             }else if(fonction == 'passager'){
                               //REDIRECTION Passager
@@ -168,7 +168,6 @@ class _ConnexionPageWidgetState extends State<ConnexionPageWidget> {
 
                             }
 
-                            await showErrorDialog(context, "Connexion réussie !");
                           }else if(response.statusCode == 401){
                             await showErrorDialog(context, "Identifiants invalides");
                           } else{

@@ -3,7 +3,7 @@ import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/views/conducteur/error_dialog.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
 class InscriptionConducteurPageWidget extends StatefulWidget {
@@ -18,7 +18,10 @@ class InscriptionConducteurPageWidget extends StatefulWidget {
 class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurPageWidget> {
 
   final apiService = ApiService();
+  final storage = const FlutterSecureStorage();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String dropdownValue = 'Véhicule';
   String dropdownValue2 = '1';
 
@@ -26,6 +29,7 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
   //TEXT EDITING CONTROLLER
   final TextEditingController _matricule = TextEditingController();
   final TextEditingController _email = TextEditingController();
+  final TextEditingController _zone = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _password_retype = TextEditingController();
 
@@ -40,6 +44,7 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
   void dispose() {
     _matricule.dispose();
     _email.dispose();
+    _zone.dispose();
     _password.dispose();
     _password_retype.dispose();
     super.dispose();
@@ -109,6 +114,28 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                 },
                 decoration: InputDecoration(
                   labelText: 'Email',
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.blue),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              SizedBox(height: deviceHeight * 0.02),
+              TextFormField(
+                controller: _zone,
+                enableSuggestions: false,
+                autocorrect: false,
+                validator: (value){
+                  if(value == null || value.isEmpty){
+                    return "Veuillez entrer la zone";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  labelText: 'Zone Ex: Cotonou,Akpakpa',
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
@@ -242,7 +269,7 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                   ),
                 ),
               ),
-              SizedBox(height: deviceHeight * 0.07),
+              SizedBox(height: deviceHeight * 0.03),
               GestureDetector(
                 onTap: (){
                   Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ConnexionPageWidget(), settings: null));
@@ -266,21 +293,22 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                   ),
                 ),
               ),
-              SizedBox(height: deviceHeight * 0.04),
+              SizedBox(height: deviceHeight * 0.02),
               ElevatedButton(
                 onPressed: () async{
                   //INSCRIPTION
 
                   final matricule = _matricule.text.toString();
                   final email = _email.text.toLowerCase();
+                  final zone = _zone.text.toLowerCase();
                   final vehicule = dropdownValue.toLowerCase();
                   final places = dropdownValue2;
                   final password = _password.text.toString();
 
-                  //Faire le SplashScreen
                   Map<String,String> body = {
                     'matricule':matricule,
                     'email':email,
+                    'zone':zone,
                     'vehicule':vehicule,
                     'place':places,
                     'fonction': 'conducteur',
@@ -295,8 +323,10 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                       final response = await apiService.inscription('inscription',body: body);
                       if(response.statusCode == 201){
                         //REDIRECTION
-                        //L'utilisateur doit etre redirigé vers la page d'acceuil conducteur
-                        await showErrorDialog(context, "Vous êtes inscrit avec succès !");
+                        // L'utilisateur doit etre redirigé vers la page d'acceuil conducteur ou connexion
+                        await storage.write(key: 'vehicule', value: vehicule);
+                        Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ConnexionPageWidget(), settings: null));
+
                       }else if(response.statusCode == 404){
                         await showErrorDialog(context, "Identifiant invalide");
                       } else{
@@ -304,7 +334,7 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                       }
                     }
                   }catch(e) {
-                    await showErrorDialog(context, "Oups, une erreur s'est produite à notre niveau, veuillez réessayer plus tard");
+                    await showErrorDialog(context, "Oops, une erreur s'est produite à notre niveau, veuillez réessayer plus tard");
                   }
 
 

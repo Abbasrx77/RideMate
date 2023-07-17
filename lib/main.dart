@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/routes/routes_constants.dart';
+import 'package:ridemate/views/conducteur/acceuil.dart';
+import 'package:ridemate/views/conducteur/choix_position_depart.dart';
 import 'package:ridemate/views/conducteur/choix_profil.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
 import 'package:ridemate/views/passager/inscription.dart';
@@ -21,6 +23,9 @@ void main() {
       },
       connexion_route: (context){
         return const ConnexionPageWidget();
+      },
+      choix_position_depart_route: (context){
+        return const ChoixPositionDepart();
       },
     },
     home: const ConnexionPageWidget(),
