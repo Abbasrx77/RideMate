@@ -3,7 +3,7 @@ import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/views/conducteur/choix_position_depart.dart';
 import 'package:ridemate/views/conducteur/choix_profil.dart';
-import 'package:ridemate/views/conducteur/error_dialog.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
 import 'dart:convert';
 import 'package:ridemate/views/passager/inscription.dart';
 
@@ -175,7 +175,7 @@ class _ConnexionPageWidgetState extends State<ConnexionPageWidget> {
                           }
                         }
                       }catch(e) {
-                        await showErrorDialog(context, "Oups, une erreur s'est produite à notre niveau, veuillez réessayer plus tard");
+                        await showErrorDialog(context, "Oops, une erreur s'est produite à notre niveau, veuillez réessayer plus tard");
                       }
 
 

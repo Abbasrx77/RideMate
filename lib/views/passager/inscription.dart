@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
-import 'package:ridemate/views/conducteur/error_dialog.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
 
 class InscriptionPassagerPageWidget extends StatefulWidget {

@@ -6,10 +6,18 @@ import 'package:ridemate/views/conducteur/choix_profil.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
 import 'package:ridemate/views/passager/inscription.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
+    localizationsDelegates: const [
+      GlobalMaterialLocalizations.delegate,
+    ],
+    supportedLocales: const [
+      Locale('fr'),
+    ],
+    locale: const Locale('fr'),
     title: 'Flutter Demo',
     theme: ThemeData(
       primarySwatch: Colors.blue,
