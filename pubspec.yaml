@@ -43,7 +43,9 @@ dependencies:
   flutter_native_splash: ^2.3.1
   flutter_datetime_picker: ^1.5.1
   flutter_localization: ^0.1.12
-
+  geocoding: ^2.1.0
+  flutter_map: ^5.0.0
+  flutter_typeahead: ^4.6.2
 
 flutter_native_splash:
   color: "#000000"

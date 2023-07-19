@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:ridemate/api/api_service.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/utilities/succes_dialog.dart';
 import 'package:intl/intl.dart';
@@ -169,8 +171,19 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                               ),
                             ),
                           ),
+                          /*Autocomplete<String>(
+                            optionsBuilder: (TextEditingValue textEditingValue) {
+                              if (textEditingValue.text.isEmpty) {
+                                return const Iterable<String>.empty();
+                              }
+                              return apiService.getPlaceSuggestions(textEditingValue.text);
+                            },
+                            onSelected: (String selection) {
+                              print('You just selected $selection');
+                            },
+                          ),*/
                           FutureBuilder(
-                            future: _readVehiculeValue(), // Lecture de la valeur 'vehicule' du Flutter Secure Storage
+                            future: _readVehiculeValue(),
                             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                               if (snapshot.hasData) {
                                 return Visibility(
@@ -243,8 +256,8 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                           ElevatedButton(
                             onPressed: () async{
 
-                              final heure_depart = _heureController.text;
-                              final date_depart = _dateController.text;
+                              final heure_depart = _heureController.text.toString();
+                              final date_depart = _dateController.text.toString();
                               final position = _position.text;
                               final description = _description.text;
                               final eneam = await storage.read(key: 'eneam') ?? 'test';
@@ -253,7 +266,7 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                                 'heure_depart':heure_depart,
                                 'date_depart':date_depart,
                                 'position':position,
-                                'places':dropdownValue2,
+                                'place':dropdownValue2,
                                 'description':description,
                                 'eneam':eneam
                               };
@@ -261,9 +274,9 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                               try{
 
                                 if(!_formKey.currentState!.validate()){
-                                  await showSuccesDialog(context, "Veuillez suivre les indications");
+                                  await showErrorDialog(context, "Veuillez suivre les indications");
                                 }else{
-                                  final response = await apiService.publier('publier_trajet',body: body);
+                                  final response = await apiService.post_authentification('publier_trajet',body: body);
                                   if(response.statusCode == 200){
 
                                     _heureController.text = '';
@@ -271,16 +284,15 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                                     _position.text = '';
                                     _description.text = '';
 
-
-                                    await showSuccesDialog(context, "Votre offre a été publiée avec succès${response.body}");
+                                    await showSuccesDialog(context, "Votre offre a été publiée avec succès");
 
                                   }else{
-                                    await showSuccesDialog(context, "Oups, une erreur s'est produite à notre niveau${response.body}");
+                                    await showErrorDialog(context, "Oups, une erreur s'est produite à notre niveau");
                                   }
                                 }
 
                               }catch(e){
-                                await showSuccesDialog(context, "Oups, une erreur s'est produite à notre niveau ${e}");
+                                await showErrorDialog(context, "Oops, une erreur s'est produite à notre niveau");
                               }
 
                             },

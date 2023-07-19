@@ -8,7 +8,7 @@ class ApiService{
   //L'url utilisé ici n'est pas localhost mais l'adresse IP de l'ordinateur sur lequel tourne le serveur laravel
   //L'ordinateur est connecté à un réseau wifi et fait un partage de connexion au smartphone
   //Veuillez remplacer l'adresse IP de l'ordinateur par "localhost:8000" ou l'adresse du serveur concerné
-  final String baseUrl = "http://192.168.231.145:8000/api";
+  final String baseUrl = "http://192.168.27.145:8000/api";
   final storage = const FlutterSecureStorage();
 
 
@@ -45,7 +45,7 @@ class ApiService{
     return response;
   }
 
-  Future<http.Response> publier(String endpoint, {required Map<String, String?> body}) async {
+  Future<http.Response> post_authentification(String endpoint, {required Map<String, String?> body}) async {
     final token = await storage.read(key: 'auth_token');
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
@@ -87,5 +87,18 @@ class ApiService{
       body: jsonEncode(body),
     );
     return response;
+  }
+
+  Future<List<String>> getPlaceSuggestions(String input) async {
+    final response = await http.get(
+      Uri.parse('https://nominatim.openstreetmap.org/search?format=json&q=$input'),
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> places = jsonDecode(response.body);
+      return places.take(5).map((place) => place['display_name'].toString()).toList();
+    } else {
+      throw Exception('Failed to load suggestions');
+    }
   }
 }
