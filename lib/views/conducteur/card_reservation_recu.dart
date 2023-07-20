@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 
-class TrajetCard extends StatefulWidget {
+class ReservationCard extends StatefulWidget {
   final String date;
   final String heure;
   final String lieuDepart;
   final String lieuArrivee;
-  final String description;
   final String nomPrenom;
   final String typeVehicule;
   final int nombrePlaces;
 
-  const TrajetCard({
+  const ReservationCard({
     super.key,
     required this.date,
     required this.heure,
     required this.lieuDepart,
     required this.lieuArrivee,
-    required this.description,
     required this.nomPrenom,
     required this.typeVehicule,
     required this.nombrePlaces,
   });
 
   @override
-  State<TrajetCard> createState() => _TrajetCardState();
+  State<ReservationCard> createState() => _ReservationCardState();
 }
 
-class _TrajetCardState extends State<TrajetCard> {
+class _ReservationCardState extends State<ReservationCard> {
   bool isTrajetDeleted = false;
 
   void _supprimerTrajet() {
@@ -114,25 +112,6 @@ class _TrajetCardState extends State<TrajetCard> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            const Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.zero,
-                  child: Text(
-                    'Description',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: Text(widget.description),
-            ),
             const SizedBox(height: 20),
             Row(
               children: [
@@ -159,20 +138,39 @@ class _TrajetCardState extends State<TrajetCard> {
               ],
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: 300,
-              child: ElevatedButton(
-                onPressed: _supprimerTrajet,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+            Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 150,
+                  child: ElevatedButton(
+                    //onPressed: _supprimerTrajet,
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                    ),
+                    child: const Text(
+                      'Refuser',
+                      //style: TextStyle(color: Colors.red, background: ),
+                    ),
+                  ),
                 ),
-                child: const Text(
-                  'Supprimer',
-                  //style: TextStyle(color: Colors.red, background: ),
+                const SizedBox(width: 20),
+                SizedBox(
+                  width: 150,
+                  child: ElevatedButton(
+                    //onPressed: _supprimerTrajet,
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: const Text(
+                      'Acepter',
+                      //style: TextStyle(color: Colors.red, background: ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-            const SizedBox(height: 20)
           ],
         ),
       ),

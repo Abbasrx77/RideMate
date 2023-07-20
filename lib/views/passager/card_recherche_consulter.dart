@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TrajetCard extends StatefulWidget {
+class RechercherCard extends StatefulWidget {
   final String date;
   final String heure;
   final String lieuDepart;
@@ -10,7 +10,7 @@ class TrajetCard extends StatefulWidget {
   final String typeVehicule;
   final int nombrePlaces;
 
-  const TrajetCard({
+  const RechercherCard({
     super.key,
     required this.date,
     required this.heure,
@@ -23,10 +23,10 @@ class TrajetCard extends StatefulWidget {
   });
 
   @override
-  State<TrajetCard> createState() => _TrajetCardState();
+  State<RechercherCard> createState() => _RechercherCardState();
 }
 
-class _TrajetCardState extends State<TrajetCard> {
+class _RechercherCardState extends State<RechercherCard> {
   bool isTrajetDeleted = false;
 
   void _supprimerTrajet() {
@@ -114,7 +114,7 @@ class _TrajetCardState extends State<TrajetCard> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 20),
             const Row(
               children: [
                 Padding(
@@ -162,9 +162,10 @@ class _TrajetCardState extends State<TrajetCard> {
             SizedBox(
               width: 300,
               child: ElevatedButton(
-                onPressed: _supprimerTrajet,
+                //onPressed: _supprimerTrajet,
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.blue,
                 ),
                 child: const Text(
                   'Supprimer',
@@ -172,7 +173,7 @@ class _TrajetCardState extends State<TrajetCard> {
                 ),
               ),
             ),
-            const SizedBox(height: 20)
+            const SizedBox(height: 16)
           ],
         ),
       ),
