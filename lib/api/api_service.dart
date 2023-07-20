@@ -55,6 +55,15 @@ class ApiService{
     return response;
   }
 
+  Future<http.Response> get_authentification(String endpoint) async {
+    final token = await storage.read(key: 'auth_token');
+    final response = await http.get(
+      Uri.parse('$baseUrl/$endpoint'),
+      headers: { 'Authorization': 'Bearer $token' , 'Content-Type': 'application/x-www-form-urlencoded', },
+    );
+    return response;
+  }
+
   Future<http.Response> connexion({required Map<String, String> body}) async {
     final response = await http.post(
       Uri.parse('$baseUrl/connexion'),

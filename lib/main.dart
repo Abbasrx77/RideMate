@@ -36,7 +36,7 @@ void main() {
         return const ChoixPositionDepart();
       },
     },
-    home: const ChoixPositionDepart(),
+    home: const AcceuilConducteurPageWidget(),
   ));
 }
 
