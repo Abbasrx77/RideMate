@@ -334,7 +334,7 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                       }
                     }
                   }catch(e) {
-                    await showErrorDialog(context, "Oops, une erreur s'est produite à notre niveau, veuillez réessayer plus tard");
+                    await showErrorDialog(context, "Oops, une erreur s'est produite à notre niveau, veuillez réessayer plus tard ${e}");
                   }
 
 

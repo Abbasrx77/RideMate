@@ -5,6 +5,7 @@ import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/utilities/succes_dialog.dart';
 import 'package:intl/intl.dart';
+import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
 
 
 class AcceuilConducteurPageWidget extends StatefulWidget {
@@ -122,7 +123,7 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                                   );
                                   if (selectedDate != null) {
                                     setState(() {
-                                      _dateController.text = DateFormat('dd/MM/yyyy').format(selectedDate);
+                                      _dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
                                     });
                                   }
                                 },
@@ -314,11 +315,21 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
-        currentIndex: 0, // Indique la page actuelle (0 pour la première icône)
         onTap: (int index) {
-
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const OffreDeTrajet(), settings: null));
+              break;
+            case 2:
+              //A FAIRE APRES
+              break;
+            case 3:
+             //A FAIRE APRES
+              break;
+          }
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

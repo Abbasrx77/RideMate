@@ -3,6 +3,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 import 'dart:developer' as devtools show log;
 
+import 'package:ridemate/models/trajet.dart';
+
 class ApiService{
   //IMPORTANT!!!!!
   //L'url utilisé ici n'est pas localhost mais l'adresse IP de l'ordinateur sur lequel tourne le serveur laravel
@@ -55,13 +57,30 @@ class ApiService{
     return response;
   }
 
-  Future<http.Response> get_authentification(String endpoint) async {
+  /*Future<http.Response> get_authentification(String endpoint) async {
     final token = await storage.read(key: 'auth_token');
     final response = await http.get(
       Uri.parse('$baseUrl/$endpoint'),
       headers: { 'Authorization': 'Bearer $token' , 'Content-Type': 'application/x-www-form-urlencoded', },
     );
     return response;
+  }*/
+
+  Future<List<Trajet>> get_trajets(String endpoint) async {
+    final token = await storage.read(key: 'auth_token');
+    final response = await http.get(
+      Uri.parse('$baseUrl/$endpoint'),
+      headers: { 'Authorization': 'Bearer $token' , 'Content-Type': 'application/x-www-form-urlencoded', },
+    );
+    if (response.statusCode == 200) {
+      // If the server returns a OK response, parse the JSON.
+      final body = jsonDecode(response.body);
+      return body.map<Trajet>((itemJson) => Trajet.fromJson(itemJson)).toList();
+    } else {
+      // If the server did not return a 200 OK response,
+      // throw an exception.
+      throw Exception('Failed to load trajet');
+    }
   }
 
   Future<http.Response> connexion({required Map<String, String> body}) async {
@@ -88,12 +107,12 @@ class ApiService{
     return response;
   }
 
-  Future<http.Response> delete(String endpoint, {required Map<String, String> body}) async {
+  Future<http.Response> delete(String endpoint, {required Map<String, String?> body}) async {
     final token = await storage.read(key: 'auth_token');
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
       headers: { 'Authorization': 'Bearer $token', 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: jsonEncode(body),
+      body: body,
     );
     return response;
   }
