@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/routes/routes_constants.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
-import 'package:ridemate/views/conducteur/choix_position_depart.dart';
-import 'package:ridemate/views/conducteur/choix_profil.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
+import 'package:ridemate/views/passager/choix_position_depart.dart';
 import 'package:ridemate/views/passager/inscription.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -35,6 +34,12 @@ void main() {
       },
       choix_position_depart_route: (context){
         return const AcceuilConducteurPageWidget();
+      },
+      offre_trajet_conducteur_route: (context){
+        return const OffreDeTrajet();
+      },
+      choix_position_depart_passager_route: (context){
+        return const ChoixPositionDepartPassager();
       },
     },
     home: const ConnexionPageWidget(),

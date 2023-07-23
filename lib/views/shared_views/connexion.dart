@@ -4,6 +4,7 @@ import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/views/conducteur/choix_position_depart.dart';
 import 'package:ridemate/views/conducteur/choix_profil.dart';
 import 'package:ridemate/utilities/error_dialog.dart';
+import 'package:ridemate/views/passager/choix_position_depart.dart';
 import 'dart:convert';
 import 'package:ridemate/views/passager/inscription.dart';
 
@@ -161,7 +162,7 @@ class _ConnexionPageWidgetState extends State<ConnexionPageWidget> {
                               Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ChoixPositionDepart(), settings: null));
 
                             }else if(fonction == 'passager'){
-                              //REDIRECTION Passager
+                              Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ChoixPositionDepartPassager(), settings: null));
 
                             }else if(fonction == 'admin'){
                               //REDIRECTION Admin
