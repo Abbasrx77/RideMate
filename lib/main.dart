@@ -7,6 +7,7 @@ import 'package:ridemate/views/passager/acceuil.dart';
 import 'package:ridemate/views/passager/choix_position_depart.dart';
 import 'package:ridemate/views/passager/inscription.dart';
 import 'package:ridemate/views/passager/recherche_consulter.dart';
+import 'package:ridemate/views/passager/reservation_envoyee.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

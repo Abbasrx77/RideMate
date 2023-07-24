@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/utilities/navigation.dart';
+import 'package:ridemate/views/passager/reservation_envoyee.dart';
 import 'package:ridemate/views/passager/trajets_trouves.dart';
 
 class AcceuilPassager extends StatefulWidget {
@@ -183,7 +184,7 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
             case 0:
               break;
             case 1:
-              //Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const OffreDeTrajet(), settings: null));
+              Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const ReservationEnvoye(), settings: null));
               break;
             case 2:
             //A FAIRE APRES
