@@ -4,7 +4,7 @@ import 'package:ridemate/utilities/error_dialog.dart';
 
 final apiService = ApiService();
 
-class TrajetCard extends StatefulWidget {
+class RechercherCard extends StatefulWidget {
   final String? date;
   final String? heure;
   final String? lieuDepart;
@@ -14,7 +14,7 @@ class TrajetCard extends StatefulWidget {
   final String? typeVehicule;
   final int? nombrePlaces;
 
-  const TrajetCard({
+  const RechercherCard({
     super.key,
     required this.date,
     required this.heure,
@@ -27,43 +27,44 @@ class TrajetCard extends StatefulWidget {
   });
 
   @override
-  State<TrajetCard> createState() => _TrajetCardState();
+  State<RechercherCard> createState() => _RechercherCardState();
 }
 
-class _TrajetCardState extends State<TrajetCard> {
-  bool isTrajetDeleted = false;
+class _RechercherCardState extends State<RechercherCard> {
+  bool isReserved = false;
 
-  void _supprimerTrajet() async{
+  void _reserverTrajet() async{
 
     final date_depart = widget.date;
+    final heure_depart = widget.heure;
     final position_depart = widget.lieuDepart;
     final position_arrivee = widget.lieuArrivee;
     final description = widget.description;
     final place = widget.nombrePlaces.toString();
+    final identite = widget.nomPrenom;
     Map<String,String?> body = {
       'date_depart': date_depart,
-      'point_depart': position_depart,
-      'point_arrivee': position_arrivee,
+      'heure_depart': "$date_depart $heure_depart",
+      'point_depart': position_depart?.toLowerCase(),
+      'point_arrivee': position_arrivee?.toLowerCase(),
       'description': description,
-      'place':place
+      'place':place,
+      'identite':identite
     };
     setState(() {
-      isTrajetDeleted = true;
+      isReserved = true;
     });
-    final response = await apiService.delete('supprimer_offres',body: body);
+    final response = await apiService.post_authentification('reserver',body: body);
+    //await showErrorDialog(context, "Données : ${response.body}");
 
   }
 
   @override
   Widget build(BuildContext context) {
-    if (isTrajetDeleted) {
-      return const SizedBox
-          .shrink(); // Retourne un widget vide si le trajet est supprimé
-    }
 
     return Card(
       elevation: 20.0,
-      color: Colors.white,
+      color: isReserved ? Colors.grey.shade300 : Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
         side: const BorderSide(
@@ -132,7 +133,7 @@ class _TrajetCardState extends State<TrajetCard> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 20),
             const Row(
               children: [
                 Padding(
@@ -180,17 +181,17 @@ class _TrajetCardState extends State<TrajetCard> {
             SizedBox(
               width: 300,
               child: ElevatedButton(
-                onPressed: _supprimerTrajet,
+                onPressed: isReserved ? null : _reserverTrajet,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red.shade700,
+                  backgroundColor: isReserved ? Colors.grey : Colors.blue,
                 ),
                 child: const Text(
-                  'Supprimer',
+                  'Réserver',
                   //style: TextStyle(color: Colors.red, background: ),
                 ),
               ),
             ),
-            const SizedBox(height: 20)
+            const SizedBox(height: 16)
           ],
         ),
       ),

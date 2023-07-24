@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:ridemate/views/passager/acceuil.dart';
 
 class ChoixPositionDepartPassager extends StatelessWidget {
   const ChoixPositionDepartPassager({super.key});
@@ -35,8 +36,8 @@ class ChoixPositionDepartPassager extends StatelessWidget {
             bottom: deviceHeight * 0.05,
             child: ElevatedButton(
               onPressed: ()async{
-                //await storage.write(key: 'eneam', value: "quitter_eneam");
-                //Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const AcceuilConducteurPageWidget(), settings: null));
+                await storage.write(key: 'eneam_passager', value: "quitter_eneam");
+                Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const AcceuilPassager(), settings: null));
               },
               child: const Text("Quitter Eneam"),
             ),
@@ -47,8 +48,8 @@ class ChoixPositionDepartPassager extends StatelessWidget {
             bottom: deviceHeight * 0.17,
             child: ElevatedButton(
               onPressed: ()async{
-                //await storage.write(key: 'eneam', value: "aller_eneam");
-                //Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const AcceuilConducteurPageWidget(), settings: null));
+                await storage.write(key: 'eneam_passager', value: "aller_eneam");
+                Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const AcceuilPassager(), settings: null));
               },
               child: const Text("Aller à Eneam"),
             ),

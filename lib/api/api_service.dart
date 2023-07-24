@@ -83,6 +83,24 @@ class ApiService{
     }
   }
 
+  Future<List<Trajet>> rechercher_trajets(String endpoint, {required Map<String, String> body}) async {
+    final token = await storage.read(key: 'auth_token');
+    final response = await http.post(
+      Uri.parse('$baseUrl/$endpoint'),
+      headers: { 'Authorization': 'Bearer $token' , 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+      // If the server returns a OK response, parse the JSON.
+      final body = jsonDecode(response.body);
+      return body.map<Trajet>((itemJson) => Trajet.fromJson(itemJson)).toList();
+    } else {
+      // If the server did not return a 200 OK response,
+      // throw an exception.
+      throw Exception('Failed to load trajet');
+    }
+  }
+
   Future<http.Response> connexion({required Map<String, String> body}) async {
     final response = await http.post(
       Uri.parse('$baseUrl/connexion'),
