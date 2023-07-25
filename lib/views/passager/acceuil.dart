@@ -43,7 +43,7 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
         title: Padding(
           padding: const EdgeInsets.only(top: 20.0),
@@ -54,67 +54,90 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: SizedBox(
-            height: 330,
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    TextField(
-                      controller: _heureController,
-                      decoration: const InputDecoration(
-                        labelText: 'Heure de départ',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      controller: _dateController,
-                      decoration: const InputDecoration(
-                        labelText: 'Date de départ',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      controller: _lieuController,
-                      decoration: const InputDecoration(
-                        labelText: 'Lieu de départ',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
+      body: Stack(children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          height: deviceHeight * 0.4,
+          child: Image.asset(
+            'assets/img1.jpg',
+            fit: BoxFit.cover,
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            'Un vaste de choix de trajets avec vos camarades',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 25,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: SizedBox(
+              height: 330,
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      TextField(
+                        controller: _heureController,
+                        decoration: const InputDecoration(
+                          labelText: 'Heure de départ',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: _rechercherTrajets,
-                      child: const Text('Rechercher'),
-                    ),
-                  ],
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: _dateController,
+                        decoration: const InputDecoration(
+                          labelText: 'Date de départ',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: _lieuController,
+                        decoration: const InputDecoration(
+                          labelText: 'Lieu de départ',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: _rechercherTrajets,
+                        child: const Text('Rechercher'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {

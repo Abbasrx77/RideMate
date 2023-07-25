@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ridemate/routes/routes_constants.dart';
 import 'package:ridemate/views/conducteur/choix_position_depart.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
-import 'package:ridemate/views/passager/acceuil.dart';
+import 'package:ridemate/views/conducteur/profile_page_conducteur.dart';
 import 'package:ridemate/views/passager/inscription.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
 
@@ -31,8 +31,9 @@ void main() {
       //home: const OffreDeTrajet()) );
       //home: const ReservationRecu() ,
       //home: const RechercheConsulter(),
-      //home: const ReservationEnvoye()
-      home: const AcceuilPassager()));
+      //home: const ReservationEnvoye(),
+      //home: const AcceuilPassager(),
+      home: const ConducteurProfilePage()));
 }
 
 class Acceuil extends StatefulWidget {
