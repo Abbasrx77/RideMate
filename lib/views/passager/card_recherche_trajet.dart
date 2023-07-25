@@ -4,7 +4,7 @@ import 'package:ridemate/utilities/error_dialog.dart';
 
 final apiService = ApiService();
 
-class ReservationCard extends StatefulWidget {
+class RechercherCard extends StatefulWidget {
   final String? date;
   final String? heure;
   final String? lieuDepart;
@@ -14,7 +14,7 @@ class ReservationCard extends StatefulWidget {
   final String? typeVehicule;
   final int? nombrePlaces;
 
-  const ReservationCard({
+  const RechercherCard({
     super.key,
     required this.date,
     required this.heure,
@@ -27,44 +27,44 @@ class ReservationCard extends StatefulWidget {
   });
 
   @override
-  State<ReservationCard> createState() => _ReservationCardState();
+  State<RechercherCard> createState() => _RechercherCardState();
 }
 
-class _ReservationCardState extends State<ReservationCard> {
-  bool isTrajetDeleted = false;
+class _RechercherCardState extends State<RechercherCard> {
+  bool isReserved = false;
 
-  void _supprimerReservation() async{
+  void _reserverTrajet() async{
 
     final date_depart = widget.date;
+    final heure_depart = widget.heure;
     final position_depart = widget.lieuDepart;
     final position_arrivee = widget.lieuArrivee;
     final description = widget.description;
     final place = widget.nombrePlaces.toString();
+    final identite = widget.nomPrenom;
     Map<String,String?> body = {
       'date_depart': date_depart,
-      'point_depart': position_depart,
-      'point_arrivee': position_arrivee,
+      'heure_depart': "$date_depart $heure_depart",
+      'point_depart': position_depart?.toLowerCase(),
+      'point_arrivee': position_arrivee?.toLowerCase(),
       'description': description,
-      'place':place
+      'place':place,
+      'identite':identite
     };
     setState(() {
-      isTrajetDeleted = true;
+      isReserved = true;
     });
-    final response = await apiService.delete('supprimer_reservation',body: body);
+    final response = await apiService.post_authentification('reserver',body: body);
     //await showErrorDialog(context, "Données : ${response.body}");
 
   }
 
   @override
   Widget build(BuildContext context) {
-    if (isTrajetDeleted) {
-      return const SizedBox
-          .shrink();
-    }
 
     return Card(
       elevation: 20.0,
-      color: Colors.white,
+      color: isReserved ? Colors.grey.shade300 : Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
         side: const BorderSide(
@@ -181,12 +181,12 @@ class _ReservationCardState extends State<ReservationCard> {
             SizedBox(
               width: 300,
               child: ElevatedButton(
-                onPressed: _supprimerReservation,
+                onPressed: isReserved ? null : _reserverTrajet,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: isReserved ? Colors.grey : Colors.blue,
                 ),
                 child: const Text(
-                  'Annuler',
+                  'Réserver',
                   //style: TextStyle(color: Colors.red, background: ),
                 ),
               ),

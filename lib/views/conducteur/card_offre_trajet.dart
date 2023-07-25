@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:ridemate/api/api_service.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
+
+final apiService = ApiService();
 
 class TrajetCard extends StatefulWidget {
-  final String date;
-  final String heure;
-  final String lieuDepart;
-  final String lieuArrivee;
-  final String description;
-  final String nomPrenom;
-  final String typeVehicule;
-  final int nombrePlaces;
+  final String? date;
+  final String? heure;
+  final String? lieuDepart;
+  final String? lieuArrivee;
+  final String? description;
+  final String? nomPrenom;
+  final String? typeVehicule;
+  final int? nombrePlaces;
 
   const TrajetCard({
     super.key,
@@ -29,11 +33,25 @@ class TrajetCard extends StatefulWidget {
 class _TrajetCardState extends State<TrajetCard> {
   bool isTrajetDeleted = false;
 
-  void _supprimerTrajet() {
-    // Mettez ici la logique pour supprimer le trajet
+  void _supprimerTrajet() async{
+
+    final date_depart = widget.date;
+    final position_depart = widget.lieuDepart;
+    final position_arrivee = widget.lieuArrivee;
+    final description = widget.description;
+    final place = widget.nombrePlaces.toString();
+    Map<String,String?> body = {
+      'date_depart': date_depart,
+      'point_depart': position_depart,
+      'point_arrivee': position_arrivee,
+      'description': description,
+      'place':place
+    };
     setState(() {
       isTrajetDeleted = true;
     });
+    final response = await apiService.delete('supprimer_offres',body: body);
+
   }
 
   @override
@@ -65,14 +83,14 @@ class _TrajetCardState extends State<TrajetCard> {
                   color: Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(widget.date),
+                Text(widget.date ?? ''),
                 const Spacer(),
                 const Icon(
                   Icons.access_time,
                   color: Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(widget.heure),
+                Text(widget.heure ?? ''),
               ],
             ),
             const SizedBox(height: 20),
@@ -86,7 +104,7 @@ class _TrajetCardState extends State<TrajetCard> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    widget.lieuDepart,
+                    widget.lieuDepart ?? '',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 )
@@ -109,7 +127,7 @@ class _TrajetCardState extends State<TrajetCard> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  widget.lieuArrivee,
+                  widget.lieuArrivee ?? '',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -131,13 +149,13 @@ class _TrajetCardState extends State<TrajetCard> {
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: Text(widget.description),
+              child: Text(widget.description ?? ''),
             ),
             const SizedBox(height: 20),
             Row(
               children: [
                 Text(
-                  widget.nomPrenom,
+                  widget.nomPrenom ?? '',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
@@ -164,7 +182,7 @@ class _TrajetCardState extends State<TrajetCard> {
               child: ElevatedButton(
                 onPressed: _supprimerTrajet,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.red.shade700,
                 ),
                 child: const Text(
                   'Supprimer',

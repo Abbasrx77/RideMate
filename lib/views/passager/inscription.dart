@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
-import 'package:ridemate/views/conducteur/error_dialog.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
 
 class InscriptionPassagerPageWidget extends StatefulWidget {
@@ -236,8 +236,7 @@ class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageW
                           final response = await apiService.inscription('inscription',body: body);
                           if(response.statusCode == 201){
                             //REDIRECTION
-                            //L'utilisateur doit etre redirigé vers la page d'acceuil conducteur
-                            await showErrorDialog(context, "Vous êtes inscrit avec succès !");
+                            Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ConnexionPageWidget(), settings: null));
                           }else if(response.statusCode == 404){
                             await showErrorDialog(context, "Identifiant invalide");
                           } else{

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ridemate/models/trajet.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
+import 'package:ridemate/utilities/navigation.dart';
+import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/card_offre_trajet.dart';
+import 'package:ridemate/api/api_service.dart';
 
 class OffreDeTrajet extends StatefulWidget {
   const OffreDeTrajet({super.key});
@@ -9,7 +14,23 @@ class OffreDeTrajet extends StatefulWidget {
 }
 
 class _OffreDeTrajetState extends State<OffreDeTrajet> {
+  final apiService = ApiService();
+
   int _currentIndex = 0;
+  late Future<List<Trajet>> _trajetsFuture;
+
+
+  @override
+  void initState(){
+    super.initState();
+    _trajetsFuture = loadTrajets();
+  }
+
+
+  Future<List<Trajet>> loadTrajets() async {
+    return await apiService.get_trajets('recuperer_offres');
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,134 +46,83 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
           padding: const EdgeInsets.only(top: 20.0),
           child: SizedBox(
             height: deviceWidth *
-                0.1, // you can increase or decrease the height as you need
+                0.1,
             child: Image.asset('assets/main_logo.png'),
           ),
         ),
       ),
-      body: ListView(
-        children: const [
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Text(
-              'Mes offres de trajets',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Mes offres', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          ),
+          Expanded(
+            child: FutureBuilder<List<Trajet>>(
+              future: _trajetsFuture, // the Future you want to work with
+              builder: (BuildContext context, AsyncSnapshot<List<Trajet>> snapshot) {
+                if (snapshot.hasData) {
+                  // Map the data if it is non-null
+                  return ListView(
+                    children: snapshot.data!.map((trajet) {
+                      return TrajetCard(
+                        date: trajet.date,
+                        heure: trajet.heure,
+                        lieuDepart: trajet.lieuDepart,
+                        lieuArrivee: trajet.lieuArrivee,
+                        description: trajet.description,
+                        nomPrenom: trajet.nomPrenom,
+                        typeVehicule: trajet.typeVehicule,
+                        nombrePlaces: trajet.nombrePlaces,
+                      );
+                    }).toList(),
+                  );
+                } else {
+                  // If data is null, return a spinner
+                  return Center(child: CircularProgressIndicator());
+                }
+              } ,
             ),
           ),
-          TrajetCard(
-            date: '25 Juillet 2023',
-            heure: '15h30',
-            lieuDepart: 'Cotonou,Vodje',
-            lieuArrivee: 'Cotonou,Eneam',
-            description: 'Lorem ipsum dolor sit amet. Eos magni sunt non'
-                ' officia eveniet aut rerum fugiat sed officiis '
-                'voluptate cum beatae quam et amet quia sed Quis tempora.',
-            nomPrenom: 'Laurent Sodji',
-            typeVehicule: 'Voiture',
-            nombrePlaces: 3,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          TrajetCard(
-            date: '25 Juillet 2023',
-            heure: '15h30',
-            lieuDepart: 'Cotonou,Vodje ',
-            lieuArrivee: 'Cotonou,Eneam',
-            description: 'Lorem ipsum dolor sit amet. Eos magni sunt non'
-                ' officia eveniet aut rerum fugiat sed officiis '
-                'voluptate cum beatae quam et amet quia sed Quis tempora.',
-            nomPrenom: 'Laurent Sodji',
-            typeVehicule: 'Voiture',
-            nombrePlaces: 3,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          TrajetCard(
-            date: '25 Juillet 2023',
-            heure: '15h30',
-            lieuDepart: 'Cotonou,Vodje ',
-            lieuArrivee: 'Cotonou,Eneam',
-            description: 'Lorem ipsum dolor sit amet. Eos magni sunt non'
-                ' officia eveniet aut rerum fugiat sed officiis '
-                'voluptate cum beatae quam et amet quia sed Quis tempora.',
-            nomPrenom: 'Laurent Sodji',
-            typeVehicule: 'Voiture',
-            nombrePlaces: 3,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          TrajetCard(
-            date: '25 Juillet 2023',
-            heure: '15h30',
-            lieuDepart: 'Cotonou,Vodje ',
-            lieuArrivee: 'Cotonou,Eneam',
-            description: 'Lorem ipsum dolor sit amet. Eos magni sunt non'
-                ' officia eveniet aut rerum fugiat sed officiis '
-                'voluptate cum beatae quam et amet quia sed Quis tempora.',
-            nomPrenom: 'Laurent Sodji',
-            typeVehicule: 'Voiture',
-            nombrePlaces: 3,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          TrajetCard(
-            date: '25 Juillet 2023',
-            heure: '15h30',
-            lieuDepart: 'Cotonou,Vodje ',
-            lieuArrivee: 'Cotonou,Eneam',
-            description: 'Lorem ipsum dolor sit amet. Eos magni sunt non'
-                ' officia eveniet aut rerum fugiat sed officiis '
-                'voluptate cum beatae quam et amet quia sed Quis tempora.',
-            nomPrenom: 'Laurent Sodji',
-            typeVehicule: 'Voiture',
-            nombrePlaces: 3,
-          ),
+
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        backgroundColor: Colors.white,
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.black),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.send,
-              color: Colors.grey,
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          onTap: (int index) {
+            switch (index) {
+              case 0:
+                Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const AcceuilConducteurPageWidget(), settings: null));
+                break;
+              case 1:
+                break;
+              case 2:
+              //A FAIRE APRES
+                break;
+              case 3:
+              //A FAIRE APRES
+                break;
+            }
+          },
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home, color: Colors.grey),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.message,
-              color: Colors.grey,
+            BottomNavigationBarItem(
+              icon: Icon(Icons.send,color: Colors.black,),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: Colors.grey,
+            BottomNavigationBarItem(
+              icon: Icon(Icons.message,color: Colors.grey,),
+              label: '',
             ),
-            label: '',
-          ),
-        ],
-      ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person,color: Colors.grey,),
+              label: '',
+            ),
+          ],
+        )
     );
   }
 }

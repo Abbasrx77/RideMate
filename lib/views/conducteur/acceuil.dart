@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/api/api_service.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/utilities/succes_dialog.dart';
+import 'package:intl/intl.dart';
+import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
 
 
 class AcceuilConducteurPageWidget extends StatefulWidget {
@@ -26,12 +29,10 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
   String dropdownValue2 = '1';
 
   //TEXT EDITING CONTROLLER
-  final TextEditingController _heure_depart = TextEditingController();
-  final TextEditingController _date_depart = TextEditingController();
   final TextEditingController _position = TextEditingController();
   final TextEditingController _description = TextEditingController();
-
-
+  final TextEditingController _heureController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,48 +72,82 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          TextFormField(
-                            controller: _heure_depart,
-                            enableSuggestions: false,
-                            autocorrect: false,
-                            validator: (value){
-                              if(value == null || value.isEmpty){
-                                return "Veuillez l'heure";
-                              }
-                              return null;
+                          FormField(
+                            builder: (FormFieldState<String> state) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  TimeOfDay? selectedTime = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                  );
+                                  if (selectedTime != null) {
+                                    setState(() {
+                                      _heureController.text = selectedTime.format(context);
+                                    });
+                                  }
+                                },
+                                child: InputDecorator(
+                                  decoration: InputDecoration(
+                                    labelText: 'Heure de départ',
+                                    border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                  isEmpty: _heureController.text.isEmpty,
+                                  child: Text(
+                                    _heureController.text.isEmpty ? '' : _heureController.text,
+                                    style: _heureController.text.isEmpty
+                                        ? TextStyle(color: Colors.grey)
+                                        : TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              );
                             },
-                            decoration: InputDecoration(
-                              labelText: 'Heure de départ',
-                              border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.blue),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
                           ),
+
                           SizedBox(height: deviceHeight * 0.02),
-                          TextFormField(
-                            controller: _date_depart,
-                            enableSuggestions: false,
-                            autocorrect: false,
-                            validator: (value){
-                              if(value == null || value.isEmpty){
-                                return "Veuillez la date";
-                              }
-                              return null;
+                          FormField(
+                            builder: (FormFieldState<String> state) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  DateTime? selectedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2023),
+                                    lastDate: DateTime(2024),
+                                    locale: const Locale("fr"),
+                                  );
+                                  if (selectedDate != null) {
+                                    setState(() {
+                                      _dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+                                    });
+                                  }
+                                },
+                                child: InputDecorator(
+                                  decoration: InputDecoration(
+                                    labelText: 'Date de départ',
+                                    border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                  isEmpty: _dateController.text.isEmpty,
+                                  child: Text(
+                                    _dateController.text.isEmpty ? '' : _dateController.text,
+                                    style: _dateController.text.isEmpty
+                                        ? TextStyle(color: Colors.grey)
+                                        : TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              );
                             },
-                            decoration: InputDecoration(
-                              labelText: 'Date de départ',
-                              border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.blue),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
                           ),
                           SizedBox(height: deviceHeight * 0.02),
                           TextFormField(
@@ -136,8 +171,19 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                               ),
                             ),
                           ),
+                          /*Autocomplete<String>(
+                            optionsBuilder: (TextEditingValue textEditingValue) {
+                              if (textEditingValue.text.isEmpty) {
+                                return const Iterable<String>.empty();
+                              }
+                              return apiService.getPlaceSuggestions(textEditingValue.text);
+                            },
+                            onSelected: (String selection) {
+                              print('You just selected $selection');
+                            },
+                          ),*/
                           FutureBuilder(
-                            future: _readVehiculeValue(), // Lecture de la valeur 'vehicule' du Flutter Secure Storage
+                            future: _readVehiculeValue(),
                             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                               if (snapshot.hasData) {
                                 return Visibility(
@@ -210,8 +256,8 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                           ElevatedButton(
                             onPressed: () async{
 
-                              final heure_depart = _heure_depart.text;
-                              final date_depart = _date_depart.text;
+                              final heure_depart = _heureController.text.toString();
+                              final date_depart = _dateController.text.toString();
                               final position = _position.text;
                               final description = _description.text;
                               final eneam = await storage.read(key: 'eneam') ?? 'test';
@@ -220,7 +266,7 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                                 'heure_depart':heure_depart,
                                 'date_depart':date_depart,
                                 'position':position,
-                                'places':dropdownValue2,
+                                'place':dropdownValue2,
                                 'description':description,
                                 'eneam':eneam
                               };
@@ -228,26 +274,25 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                               try{
 
                                 if(!_formKey.currentState!.validate()){
-                                  await showSuccesDialog(context, "Veuillez suivre les indications");
+                                  await showErrorDialog(context, "Veuillez suivre les indications");
                                 }else{
-                                  final response = await apiService.publier('publier_trajet',body: body);
+                                  final response = await apiService.post_authentification('publier_trajet',body: body);
                                   if(response.statusCode == 200){
 
-                                    _heure_depart.text = '';
-                                    _date_depart.text = '';
+                                    _heureController.text = '';
+                                    _dateController.text = '';
                                     _position.text = '';
                                     _description.text = '';
 
-
-                                    await showSuccesDialog(context, "Votre offre a été publiée avec succès${response.body}");
+                                    await showSuccesDialog(context, "Votre offre a été publiée avec succès");
 
                                   }else{
-                                    await showSuccesDialog(context, "Oups, une erreur s'est produite à notre niveau${response.body}");
+                                    await showErrorDialog(context, "Oups, une erreur s'est produite à notre niveau");
                                   }
                                 }
 
                               }catch(e){
-                                await showSuccesDialog(context, "Oups, une erreur s'est produite à notre niveau ${e}");
+                                await showErrorDialog(context, "Oops, une erreur s'est produite à notre niveau");
                               }
 
                             },
@@ -270,11 +315,21 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
-        currentIndex: 0, // Indique la page actuelle (0 pour la première icône)
         onTap: (int index) {
-
+          switch (index) {
+            case 0:
+              break;
+            case 1:
+              Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const OffreDeTrajet(), settings: null));
+              break;
+            case 2:
+              //A FAIRE APRES
+              break;
+            case 3:
+             //A FAIRE APRES
+              break;
+          }
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -282,15 +337,15 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.send,color: Colors.black,),
+            icon: Icon(Icons.send,color: Colors.grey,),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message,color: Colors.black,),
+            icon: Icon(Icons.message,color: Colors.grey,),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person,color: Colors.black,),
+            icon: Icon(Icons.person,color: Colors.grey,),
             label: '',
           ),
         ],

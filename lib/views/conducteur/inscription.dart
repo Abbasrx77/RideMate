@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
-import 'package:ridemate/views/conducteur/error_dialog.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -334,7 +334,7 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                       }
                     }
                   }catch(e) {
-                    await showErrorDialog(context, "Oops, une erreur s'est produite à notre niveau, veuillez réessayer plus tard");
+                    await showErrorDialog(context, "Oops, une erreur s'est produite à notre niveau, veuillez réessayer plus tard ${e}");
                   }
 
 
