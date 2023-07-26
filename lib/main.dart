@@ -1,4 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:ridemate/api/firebase_api.dart';
 import 'package:ridemate/routes/routes_constants.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
@@ -10,9 +12,20 @@ import 'package:ridemate/views/passager/recherche_consulter.dart';
 import 'package:ridemate/views/passager/reservation_envoyee.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
+import '/firebase_options.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-void main() {
+
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
+  await FirebaseApi().initNotifications();
+
+
+  //FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   runApp(MaterialApp(
     localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
@@ -45,7 +58,7 @@ void main() {
         return const ChoixPositionDepartPassager();
       },
     },
-    home: const ConnexionPageWidget(),
+    home: const Acceuil(),
   ));
 }
 
@@ -57,8 +70,14 @@ class Acceuil extends StatefulWidget {
 }
 
 class _AcceuilState extends State<Acceuil> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const ConnexionPageWidget();
   }
 }
