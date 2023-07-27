@@ -143,6 +143,15 @@ class ApiService{
     );
     return response;
   }
+  Future<http.Response> update({required Map<String, String?> body}) async {
+    final token = await storage.read(key: 'auth_token');
+    final response = await http.post(
+      Uri.parse('$baseUrl/update'),
+      headers: { 'Authorization': 'Bearer $token', 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: body,
+    );
+    return response;
+  }
 
   Future<List<String>> getPlaceSuggestions(String input) async {
     final response = await http.get(
