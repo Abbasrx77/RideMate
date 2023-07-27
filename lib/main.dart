@@ -59,7 +59,7 @@ void main() async{
         return const ChoixPositionDepartPassager();
       },
     },
-    home: const ReservationObtenue(),
+    home: const ConnexionPageWidget(),
   ));
 }
 

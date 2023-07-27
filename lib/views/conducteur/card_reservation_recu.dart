@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 
@@ -213,6 +215,24 @@ class _ReservationCardState extends State<ReservationCard> {
                         isTrajetDeleted = true;
                       });
                       final response = await apiService.delete('traiter_reservation',body: body);
+
+                      var data = jsonDecode(response.body);
+                      var fcm_Token = data;
+
+
+                      final String title = 'Réservation acceptée';
+                      final String body1 = 'Votre réservation a été acceptée';
+                      final String fcmToken = '$fcm_Token';
+
+                      final Map<String, dynamic> data1 = {
+                        'notification': {
+                          'title': title,
+                          'body': body1,
+                          //'click_action': 'FLUTTER_NOTIFICATION_CLICK', // Optionnel, spécifie l'action lorsqu'on clique sur la notification
+                        },
+                        'to': fcmToken,
+                      };
+                      apiService.notify_reservation(dataToSend: data1);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

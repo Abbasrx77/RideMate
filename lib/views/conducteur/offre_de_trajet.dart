@@ -29,7 +29,7 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
 
 
   Future<List<Trajet>> loadTrajets() async {
-    return await apiService.get_trajets('reservations_obtenues');
+    return await apiService.get_trajets('recuperer_offres');
   }
 
 
