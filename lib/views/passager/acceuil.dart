@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/views/passager/reservation_envoyee.dart';
 import 'package:ridemate/views/passager/trajets_trouves.dart';
@@ -16,16 +16,15 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
   final storage = const FlutterSecureStorage();
   int _currentIndex = 0;
 
-
   @override
   void initState() {
     super.initState();
   }
+
   final TextEditingController _lieuController = TextEditingController();
   final TextEditingController _heureController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   @override
-
 
   //fonction pour faire la recherche
 
@@ -34,97 +33,6 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: SizedBox(
-            height: deviceWidth *
-                0.1, // you can increase or decrease the height as you need
-            child: Image.asset('assets/main_logo.png'),
-          ),
-        ),
-      ),
-<<<<<<< HEAD
-      body: Stack(children: [
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          height: deviceHeight * 0.4,
-          child: Image.asset(
-            'assets/img1.jpg',
-            fit: BoxFit.cover,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Un vaste de choix de trajets avec vos camarades',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontSize: 25,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(
-            child: SizedBox(
-              height: 330,
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      TextField(
-                        controller: _heureController,
-                        decoration: const InputDecoration(
-                          labelText: 'Heure de départ',
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      TextField(
-                        controller: _dateController,
-                        decoration: const InputDecoration(
-                          labelText: 'Date de départ',
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      TextField(
-                        controller: _lieuController,
-                        decoration: const InputDecoration(
-                          labelText: 'Lieu de départ',
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: _rechercherTrajets,
-                        child: const Text('Rechercher'),
-                      ),
-=======
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -148,7 +56,8 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                               );
                               if (selectedTime != null) {
                                 setState(() {
-                                  _heureController.text = selectedTime.format(context);
+                                  _heureController.text =
+                                      selectedTime.format(context);
                                 });
                               }
                             },
@@ -156,16 +65,20 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                               decoration: InputDecoration(
                                 labelText: 'Heure de départ',
                                 border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.blue),
+                                  borderSide:
+                                      const BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
                               isEmpty: _heureController.text.isEmpty,
                               child: Text(
-                                _heureController.text.isEmpty ? '' : _heureController.text,
+                                _heureController.text.isEmpty
+                                    ? ''
+                                    : _heureController.text,
                                 style: _heureController.text.isEmpty
                                     ? TextStyle(color: Colors.grey)
                                     : TextStyle(color: Colors.black),
@@ -188,7 +101,9 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                               );
                               if (selectedDate != null) {
                                 setState(() {
-                                  _dateController.text = DateFormat('yyyy-MM-dd').format(selectedDate);
+                                  _dateController.text =
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(selectedDate);
                                 });
                               }
                             },
@@ -196,16 +111,20 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                               decoration: InputDecoration(
                                 labelText: 'Date de départ',
                                 border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.blue),
+                                  borderSide:
+                                      const BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
                               isEmpty: _dateController.text.isEmpty,
                               child: Text(
-                                _dateController.text.isEmpty ? '' : _dateController.text,
+                                _dateController.text.isEmpty
+                                    ? ''
+                                    : _dateController.text,
                                 style: _dateController.text.isEmpty
                                     ? TextStyle(color: Colors.grey)
                                     : TextStyle(color: Colors.black),
@@ -219,8 +138,8 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                         controller: _lieuController,
                         enableSuggestions: false,
                         autocorrect: false,
-                        validator: (value){
-                          if(value == null || value.isEmpty){
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
                             return "Entrez un lieu";
                           }
                           return null;
@@ -228,7 +147,8 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                         decoration: InputDecoration(
                           labelText: 'Lieu (Ex: Akpakpa,Kpondehou)',
                           border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(color: Colors.blue),
@@ -238,16 +158,24 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: ()async{
-                          await storage.write(key: 'heure_depart', value:_heureController.text );
-                          await storage.write(key: 'date_depart', value:_dateController.text );
-                          await storage.write(key: 'zone', value:_lieuController.text );
+                        onPressed: () async {
+                          await storage.write(
+                              key: 'heure_depart',
+                              value: _heureController.text);
+                          await storage.write(
+                              key: 'date_depart', value: _dateController.text);
+                          await storage.write(
+                              key: 'zone', value: _lieuController.text);
 
-                          Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const TrajetsTrouvesPassager(), settings: null));
+                          Navigator.push(
+                              context,
+                              NoAnimationMaterialPageRoute(
+                                  builder: (context) =>
+                                      const TrajetsTrouvesPassager(),
+                                  settings: null));
                         },
                         child: const Text('Rechercher'),
                       ),
->>>>>>> c71209145702fdb7905aab8b64137549a461e370
                     ],
                   ),
                 ),
@@ -255,7 +183,7 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
             ),
           ),
         ),
-      ]),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (int index) {
@@ -263,13 +191,17 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
             case 0:
               break;
             case 1:
-              Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const ReservationEnvoye(), settings: null));
+              Navigator.push(
+                  context,
+                  NoAnimationMaterialPageRoute(
+                      builder: (context) => const ReservationEnvoye(),
+                      settings: null));
               break;
             case 2:
-            //A FAIRE APRES
+              //A FAIRE APRES
               break;
             case 3:
-            //A FAIRE APRES
+              //A FAIRE APRES
               break;
           }
         },
@@ -279,15 +211,24 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.send,color: Colors.grey,),
+            icon: Icon(
+              Icons.send,
+              color: Colors.grey,
+            ),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message,color: Colors.grey,),
+            icon: Icon(
+              Icons.message,
+              color: Colors.grey,
+            ),
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person,color: Colors.grey,),
+            icon: Icon(
+              Icons.person,
+              color: Colors.grey,
+            ),
             label: '',
           ),
         ],
