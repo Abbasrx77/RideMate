@@ -6,6 +6,7 @@ import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/utilities/succes_dialog.dart';
 import 'package:intl/intl.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
+import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
 
 
 class AcceuilConducteurPageWidget extends StatefulWidget {
@@ -324,10 +325,13 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
               Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const OffreDeTrajet(), settings: null));
               break;
             case 2:
-              //A FAIRE APRES
+              Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const ReservationObtenue(), settings: null));
               break;
             case 3:
              //A FAIRE APRES
+              break;
+            case 4:
+            //A FAIRE APRES
               break;
           }
         },
@@ -338,6 +342,10 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.send,color: Colors.grey,),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.send_time_extension,color: Colors.grey,),
             label: '',
           ),
           BottomNavigationBarItem(

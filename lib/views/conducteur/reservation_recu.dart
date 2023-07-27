@@ -44,15 +44,6 @@ class _ReservationRecuState extends State<ReservationRecu> {
             ),
           ),
           //Card de Réservation reçue
-          ReservationCard(
-            date: '25 Juillet 2023',
-            heure: '15h30',
-            lieuDepart: 'Cotonou,Vodje',
-            lieuArrivee: 'Cotonou,Eneam',
-            nomPrenom: 'Laurent Sodji',
-            typeVehicule: 'Voiture',
-            nombrePlaces: 3,
-          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

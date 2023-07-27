@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:ridemate/api/api_service.dart';
 
+final apiService = ApiService();
 class ReservationCard extends StatefulWidget {
-  final String date;
-  final String heure;
-  final String lieuDepart;
-  final String lieuArrivee;
-  final String nomPrenom;
-  final String typeVehicule;
-  final int nombrePlaces;
+  final String? date;
+  final String? heure;
+  final String? lieuDepart;
+  final String? lieuArrivee;
+  final String? nomPrenom;
+  final String? typeVehicule;
+  final int? nombrePlaces;
 
   const ReservationCard({
     super.key,
@@ -27,12 +29,26 @@ class ReservationCard extends StatefulWidget {
 class _ReservationCardState extends State<ReservationCard> {
   bool isTrajetDeleted = false;
 
-  void _supprimerTrajet() {
-    // Mettez ici la logique pour supprimer le trajet
+  /*void _soumettreReservation() async{
+
+    final date_depart = widget.date;
+    final position_depart = widget.lieuDepart;
+    final position_arrivee = widget.lieuArrivee;
+    final nomPrenom = widget.nomPrenom;
+    final place = widget.nombrePlaces.toString();
+    Map<String,String?> body = {
+      'date_depart': date_depart,
+      'point_depart': position_depart,
+      'point_arrivee': position_arrivee,
+      'nomPrenom':nomPrenom,
+      'place':place
+    };
     setState(() {
       isTrajetDeleted = true;
     });
-  }
+    final response = await apiService.delete('traiter_reservation',body: body);
+
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -63,14 +79,14 @@ class _ReservationCardState extends State<ReservationCard> {
                   color: Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(widget.date),
+                Text(widget.date ?? ''),
                 const Spacer(),
                 const Icon(
                   Icons.access_time,
                   color: Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(widget.heure),
+                Text(widget.heure ?? ''),
               ],
             ),
             const SizedBox(height: 20),
@@ -84,7 +100,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    widget.lieuDepart,
+                    widget.lieuDepart ?? '',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 )
@@ -107,7 +123,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  widget.lieuArrivee,
+                  widget.lieuArrivee ?? '',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -116,7 +132,7 @@ class _ReservationCardState extends State<ReservationCard> {
             Row(
               children: [
                 Text(
-                  widget.nomPrenom,
+                  widget.nomPrenom ?? '',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
@@ -144,7 +160,26 @@ class _ReservationCardState extends State<ReservationCard> {
                   width: 150,
                   child: ElevatedButton(
                     //onPressed: _supprimerTrajet,
-                    onPressed: () {},
+                    onPressed: () async{
+
+                      final date_depart = widget.date;
+                      final position_depart = widget.lieuDepart;
+                      final position_arrivee = widget.lieuArrivee;
+                      final nomPrenom = widget.nomPrenom;
+                      final place = widget.nombrePlaces.toString();
+                      Map<String,String?> body = {
+                        'traitement':'refuser',
+                        'date_depart': date_depart,
+                        'point_depart': position_depart,
+                        'point_arrivee': position_arrivee,
+                        'nomPrenom':nomPrenom,
+                        'place':place
+                      };
+                      setState(() {
+                        isTrajetDeleted = true;
+                      });
+                      final response = await apiService.delete('traiter_reservation',body: body);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                     ),
@@ -159,7 +194,26 @@ class _ReservationCardState extends State<ReservationCard> {
                   width: 150,
                   child: ElevatedButton(
                     //onPressed: _supprimerTrajet,
-                    onPressed: () {},
+                    onPressed: () async{
+
+                      final date_depart = widget.date;
+                      final position_depart = widget.lieuDepart;
+                      final position_arrivee = widget.lieuArrivee;
+                      final nomPrenom = widget.nomPrenom;
+                      final place = widget.nombrePlaces.toString();
+                      Map<String,String?> body = {
+                        'traitement':'accepter',
+                        'date_depart': date_depart,
+                        'point_depart': position_depart,
+                        'point_arrivee': position_arrivee,
+                        'nomPrenom':nomPrenom,
+                        'place':place
+                      };
+                      setState(() {
+                        isTrajetDeleted = true;
+                      });
+                      final response = await apiService.delete('traiter_reservation',body: body);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                     ),

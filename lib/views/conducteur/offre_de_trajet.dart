@@ -5,6 +5,7 @@ import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/card_offre_trajet.dart';
 import 'package:ridemate/api/api_service.dart';
+import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
 
 class OffreDeTrajet extends StatefulWidget {
   const OffreDeTrajet({super.key});
@@ -28,7 +29,7 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
 
 
   Future<List<Trajet>> loadTrajets() async {
-    return await apiService.get_trajets('recuperer_offres');
+    return await apiService.get_trajets('reservations_obtenues');
   }
 
 
@@ -97,7 +98,7 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
               case 1:
                 break;
               case 2:
-              //A FAIRE APRES
+                Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ReservationObtenue(), settings: null));
                 break;
               case 3:
               //A FAIRE APRES
@@ -111,6 +112,10 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.send,color: Colors.black,),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.send_time_extension,color: Colors.grey,),
               label: '',
             ),
             BottomNavigationBarItem(

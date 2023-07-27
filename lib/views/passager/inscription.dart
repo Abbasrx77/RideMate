@@ -3,6 +3,7 @@ import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class InscriptionPassagerPageWidget extends StatefulWidget {
   const InscriptionPassagerPageWidget({super.key});
@@ -12,7 +13,7 @@ class InscriptionPassagerPageWidget extends StatefulWidget {
 }
 
 class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageWidget> {
-
+  final storage = const FlutterSecureStorage();
   final apiService = ApiService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -218,14 +219,15 @@ class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageW
                       final email = _email.text.toLowerCase();
                       final zone = _zone.text.toLowerCase();
                       final password = _password.text.toString();
-
+                      final fcmToken = await storage.read(key: 'fcmToken') ?? 'test';
 
                       Map<String,String> body = {
                         'matricule':matricule,
                         'email':email,
                         'zone':zone,
                         'fonction': 'passager',
-                        'password':password
+                        'password':password,
+                        'fcmToken':fcmToken
                       };
 
                       try{

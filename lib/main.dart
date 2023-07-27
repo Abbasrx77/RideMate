@@ -5,6 +5,7 @@ import 'package:ridemate/routes/routes_constants.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
+import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
 import 'package:ridemate/views/passager/acceuil.dart';
 import 'package:ridemate/views/passager/choix_position_depart.dart';
 import 'package:ridemate/views/passager/inscription.dart';
@@ -58,7 +59,7 @@ void main() async{
         return const ChoixPositionDepartPassager();
       },
     },
-    home: const Acceuil(),
+    home: const ReservationObtenue(),
   ));
 }
 

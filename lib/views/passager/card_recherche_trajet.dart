@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/error_dialog.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final apiService = ApiService();
+final storage = const FlutterSecureStorage();
 
 class RechercherCard extends StatefulWidget {
   final String? date;
@@ -55,7 +59,26 @@ class _RechercherCardState extends State<RechercherCard> {
       isReserved = true;
     });
     final response = await apiService.post_authentification('reserver',body: body);
-    //await showErrorDialog(context, "Données : ${response.body}");
+
+    var data = jsonDecode(response.body);
+    var fcm_Token = data;
+
+
+    final String title = 'Réservation obtenue';
+    final String body1 = 'Vous venez de recevoir une réservation';
+    final String fcmToken = '$fcm_Token';
+
+    final Map<String, dynamic> data1 = {
+      'notification': {
+        'title': title,
+        'body': body1,
+        //'click_action': 'FLUTTER_NOTIFICATION_CLICK', // Optionnel, spécifie l'action lorsqu'on clique sur la notification
+      },
+      'to': fcmToken,
+    };
+    apiService.notify_reservation(dataToSend: data1);
+
+    //await showErrorDialog(context, "Données : ${fcmToken}");
 
   }
 

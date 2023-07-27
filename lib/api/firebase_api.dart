@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async{
@@ -9,6 +10,7 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async{
 
 class FirebaseApi{
   final _firebaseMessaging = FirebaseMessaging.instance;
+  final storage = const FlutterSecureStorage();
 
   void handleMessage(RemoteMessage? message){
     if(message == null) return;
@@ -25,7 +27,7 @@ class FirebaseApi{
     );
 
     FirebaseMessaging.instance.getInitialMessage()
-    .then(handleMessage);
+        .then(handleMessage);
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }
@@ -33,6 +35,7 @@ class FirebaseApi{
   Future<void> initNotifications() async{
     await _firebaseMessaging.requestPermission();
     final fCMToken = await _firebaseMessaging.getToken();
+    await storage.write(key: 'fcmToken', value: fCMToken);
     print("Token: $fCMToken");
     initPushNotifications();
   }
