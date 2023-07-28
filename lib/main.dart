@@ -4,7 +4,6 @@ import 'package:ridemate/routes/routes_constants.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
-import 'package:ridemate/views/conducteur/profile_page_conducteur.dart';
 import 'package:ridemate/views/passager/choix_position_depart.dart';
 import 'package:ridemate/views/passager/inscription.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
@@ -50,7 +49,7 @@ void main() {
         return const ChoixPositionDepartPassager();
       },
     },
-    home: const ConducteurProfilePage(),
+    home: const ConnexionPageWidget(),
   ));
 }
 

@@ -1,18 +1,16 @@
-import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
-import 'dart:developer' as devtools show log;
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:ridemate/models/trajet.dart';
 
-class ApiService{
+class ApiService {
   //IMPORTANT!!!!!
   //L'url utilisé ici n'est pas localhost mais l'adresse IP de l'ordinateur sur lequel tourne le serveur laravel
   //L'ordinateur est connecté à un réseau wifi et fait un partage de connexion au smartphone
   //Veuillez remplacer l'adresse IP de l'ordinateur par "localhost:8000" ou l'adresse du serveur concerné
-  final String baseUrl = "http://192.168.27.145:8000/api";
+  final String baseUrl = "http://192.168.88.250:8000/api";
   final storage = const FlutterSecureStorage();
-
 
   /*Future<String?> getAuthToken(String email, String password) async {
     try{
@@ -38,20 +36,27 @@ class ApiService{
     return response;
   }*/
 
-  Future<http.Response> inscription(String endpoint, {required Map<String, String> body}) async {
+  Future<http.Response> inscription(String endpoint,
+      {required Map<String, String> body}) async {
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       body: body,
     );
     return response;
   }
 
-  Future<http.Response> post_authentification(String endpoint, {required Map<String, String?> body}) async {
+  Future<http.Response> post_authentification(String endpoint,
+      {required Map<String, String?> body}) async {
     final token = await storage.read(key: 'auth_token');
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
-      headers: { 'Authorization': 'Bearer $token' , 'Content-Type': 'application/x-www-form-urlencoded', },
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       body: body,
     );
     return response;
@@ -70,7 +75,10 @@ class ApiService{
     final token = await storage.read(key: 'auth_token');
     final response = await http.get(
       Uri.parse('$baseUrl/$endpoint'),
-      headers: { 'Authorization': 'Bearer $token' , 'Content-Type': 'application/x-www-form-urlencoded', },
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
     );
     if (response.statusCode == 200) {
       // If the server returns a OK response, parse the JSON.
@@ -83,11 +91,15 @@ class ApiService{
     }
   }
 
-  Future<List<Trajet>> rechercher_trajets(String endpoint, {required Map<String, String> body}) async {
+  Future<List<Trajet>> rechercher_trajets(String endpoint,
+      {required Map<String, String> body}) async {
     final token = await storage.read(key: 'auth_token');
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
-      headers: { 'Authorization': 'Bearer $token' , 'Content-Type': 'application/x-www-form-urlencoded', },
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       body: body,
     );
     if (response.statusCode == 200) {
@@ -104,7 +116,9 @@ class ApiService{
   Future<http.Response> connexion({required Map<String, String> body}) async {
     final response = await http.post(
       Uri.parse('$baseUrl/connexion'),
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       body: body,
     );
     var data = jsonDecode(response.body);
@@ -113,23 +127,29 @@ class ApiService{
     return response;
   }
 
-
-
-  Future<http.Response> patch(String endpoint, {required Map<String, String> body}) async {
+  Future<http.Response> patch(String endpoint,
+      {required Map<String, String> body}) async {
     final token = await storage.read(key: 'auth_token');
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
-      headers: { 'Authorization': 'Bearer $token', 'Content-Type': 'application/x-www-form-urlencoded', },
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       body: jsonEncode(body),
     );
     return response;
   }
 
-  Future<http.Response> delete(String endpoint, {required Map<String, String?> body}) async {
+  Future<http.Response> delete(String endpoint,
+      {required Map<String, String?> body}) async {
     final token = await storage.read(key: 'auth_token');
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
-      headers: { 'Authorization': 'Bearer $token', 'Content-Type': 'application/x-www-form-urlencoded', },
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       body: body,
     );
     return response;
@@ -137,12 +157,16 @@ class ApiService{
 
   Future<List<String>> getPlaceSuggestions(String input) async {
     final response = await http.get(
-      Uri.parse('https://nominatim.openstreetmap.org/search?format=json&q=$input'),
+      Uri.parse(
+          'https://nominatim.openstreetmap.org/search?format=json&q=$input'),
     );
 
     if (response.statusCode == 200) {
       List<dynamic> places = jsonDecode(response.body);
-      return places.take(5).map((place) => place['display_name'].toString()).toList();
+      return places
+          .take(5)
+          .map((place) => place['display_name'].toString())
+          .toList();
     } else {
       throw Exception('Failed to load suggestions');
     }

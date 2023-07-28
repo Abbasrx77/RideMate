@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:ridemate/api/api_service.dart';
-import 'package:ridemate/utilities/navigation.dart';
-import 'package:ridemate/utilities/error_dialog.dart';
-import 'package:ridemate/views/shared_views/connexion.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
+import 'package:ridemate/api/api_service.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
+import 'package:ridemate/utilities/navigation.dart';
+import 'package:ridemate/views/shared_views/connexion.dart';
 
 class InscriptionConducteurPageWidget extends StatefulWidget {
   const InscriptionConducteurPageWidget({Key? key}) : super(key: key);
 
   @override
-  _InscriptionConducteurPageWidgetState createState() => _InscriptionConducteurPageWidgetState();
+  _InscriptionConducteurPageWidgetState createState() =>
+      _InscriptionConducteurPageWidgetState();
 }
 
-
-
-class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurPageWidget> {
-
+class _InscriptionConducteurPageWidgetState
+    extends State<InscriptionConducteurPageWidget> {
   final apiService = ApiService();
   final storage = const FlutterSecureStorage();
 
@@ -24,7 +22,6 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
 
   String dropdownValue = 'Véhicule';
   String dropdownValue2 = '1';
-
 
   //TEXT EDITING CONTROLLER
   final TextEditingController _matricule = TextEditingController();
@@ -35,11 +32,11 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
 
   //REGEX DE VALIDATION EMAIL
   bool isEmailValid(String email) {
-    final RegExp regex = RegExp(
-        r'^[a-zA-Z/d.a-zA-Z\d_%-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,4}$'
-    );
+    final RegExp regex =
+        RegExp(r'^[a-zA-Z/d.a-zA-Z\d_%-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,4}$');
     return regex.hasMatch(email);
   }
+
   @override
   void dispose() {
     _matricule.dispose();
@@ -52,7 +49,6 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
 
   @override
   Widget build(BuildContext context) {
-
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
 
@@ -61,28 +57,30 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: SizedBox(
-          height: deviceWidth * 0.1,  // you can increase or decrease the height as you need
+          height: deviceWidth *
+              0.1, // you can increase or decrease the height as you need
           child: Image.asset('assets/main_logo.png'),
         ),
       ),
       body: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.all(deviceWidth * 0.05),
-    child: SingleChildScrollView(
-        child: Form(
+        child: SingleChildScrollView(
+            child: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text('Inscription', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+              const Text('Inscription',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
               SizedBox(height: deviceHeight * 0.05),
               TextFormField(
                 controller: _matricule,
                 enableSuggestions: false,
                 autocorrect: false,
                 keyboardType: TextInputType.number,
-                validator: (value){
-                  if(value == null || value.isEmpty){
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
                     return "Veuillez entrer le matricule";
                   }
                   return null;
@@ -104,10 +102,10 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                 enableSuggestions: false,
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
-                validator: (value){
-                  if(value == null || value.isEmpty){
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
                     return "Veuillez entrer l'email";
-                  }else if(!isEmailValid(value)){
+                  } else if (!isEmailValid(value)) {
                     return "Email invalide";
                   }
                   return null;
@@ -128,8 +126,8 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                 controller: _zone,
                 enableSuggestions: false,
                 autocorrect: false,
-                validator: (value){
-                  if(value == null || value.isEmpty){
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
                     return "Veuillez entrer la zone";
                   }
                   return null;
@@ -153,8 +151,8 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                     flex: 1,
                     child: DropdownButtonFormField(
                       hint: Text(dropdownValue),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return "Faites un choix !";
                         }
                         return null;
@@ -182,19 +180,20 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                       }).toList(),
                     ),
                   ),
-                  const SizedBox(width: 10), // to add space between the dropdowns
+                  const SizedBox(
+                      width: 10), // to add space between the dropdowns
                   Flexible(
                     flex: 1,
                     child: DropdownButtonFormField(
                       hint: const Text("Places"),
                       value: dropdownValue == 'Voiture' ? '1' : null,
-                      validator: (value){
-                        if(dropdownValue == 'Voiture'){
-                          if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (dropdownValue == 'Voiture') {
+                          if (value == null || value.isEmpty) {
                             return "Faites un choix !";
                           }
                           return null;
-                        }else{
+                        } else {
                           return null;
                         }
                       },
@@ -207,18 +206,22 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
-                      onChanged: dropdownValue == 'Voiture' ? (String? newValue) {
-                        setState(() {
-                          dropdownValue2 = newValue!;
-                        });
-                      } : null,
-                      items: dropdownValue == 'Voiture' ? <String>['1', '2', '3', '4']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList() : null,
+                      onChanged: dropdownValue == 'Voiture'
+                          ? (String? newValue) {
+                              setState(() {
+                                dropdownValue2 = newValue!;
+                              });
+                            }
+                          : null,
+                      items: dropdownValue == 'Voiture'
+                          ? <String>['1', '2', '3', '4']
+                              .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList()
+                          : null,
                     ),
                   )
                 ],
@@ -229,8 +232,8 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
-                validator: (value){
-                  if(value == null || value.isEmpty){
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
                     return "Entrez un mot de passe";
                   }
                   return null;
@@ -252,8 +255,8 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
-                validator: (value){
-                  if(value != _password.text){
+                validator: (value) {
+                  if (value != _password.text) {
                     return "Mots de passe différents";
                   }
                   return null;
@@ -271,8 +274,12 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
               ),
               SizedBox(height: deviceHeight * 0.03),
               GestureDetector(
-                onTap: (){
-                  Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ConnexionPageWidget(), settings: null));
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      NoAnimationMaterialPageRoute(
+                          builder: (context) => const ConnexionPageWidget(),
+                          settings: null));
                 },
                 child: RichText(
                   textAlign: TextAlign.center,
@@ -282,12 +289,10 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                       TextSpan(
                         text: 'Vous avez déjà un compte?\n',
                         style: TextStyle(color: Colors.black),
-
                       ),
                       TextSpan(
                         text: 'Connectez-vous',
                         style: TextStyle(color: Colors.blue),
-
                       ),
                     ],
                   ),
@@ -295,7 +300,7 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
               ),
               SizedBox(height: deviceHeight * 0.02),
               ElevatedButton(
-                onPressed: () async{
+                onPressed: () async {
                   //INSCRIPTION
 
                   final matricule = _matricule.text.toString();
@@ -305,43 +310,50 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                   final places = dropdownValue2;
                   final password = _password.text.toString();
 
-                  Map<String,String> body = {
-                    'matricule':matricule,
-                    'email':email,
-                    'zone':zone,
-                    'vehicule':vehicule,
-                    'place':places,
+                  Map<String, String> body = {
+                    'matricule': matricule,
+                    'email': email,
+                    'zone': zone,
+                    'vehicule': vehicule,
+                    'place': places,
                     'fonction': 'conducteur',
-                    'password':password
+                    'password': password
                   };
 
-                  try{
-
-                    if(!_formKey.currentState!.validate()){
-                      await showErrorDialog(context, "Veuillez suivre les indications.");
-                    }else{
-                      final response = await apiService.inscription('inscription',body: body);
-                      if(response.statusCode == 201){
+                  try {
+                    if (!_formKey.currentState!.validate()) {
+                      await showErrorDialog(
+                          context, "Veuillez suivre les indications.");
+                    } else {
+                      final response = await apiService
+                          .inscription('inscription', body: body);
+                      if (response.statusCode == 201) {
                         //REDIRECTION
                         // L'utilisateur doit etre redirigé vers la page d'acceuil conducteur ou connexion
                         await storage.write(key: 'vehicule', value: vehicule);
-                        Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ConnexionPageWidget(), settings: null));
-
-                      }else if(response.statusCode == 404){
+                        Navigator.pushReplacement(
+                            context,
+                            NoAnimationMaterialPageRoute(
+                                builder: (context) =>
+                                    const ConnexionPageWidget(),
+                                settings: null));
+                      } else if (response.statusCode == 404) {
                         await showErrorDialog(context, "Identifiant invalide");
-                      } else{
-                        await showErrorDialog(context, "Oups, une erreur s'est produite à notre niveau, veuillez réessayer plus tard");
+                      } else {
+                        await showErrorDialog(context,
+                            "Oups, une erreur s'est produite à notre niveau, veuillez réessayer plus tard");
                       }
                     }
-                  }catch(e) {
-                    await showErrorDialog(context, "Oops, une erreur s'est produite à notre niveau, veuillez réessayer plus tard ${e}");
+                  } catch (e) {
+                    await showErrorDialog(context,
+                        "Oops, une erreur s'est produite à notre niveau, veuillez réessayer plus tard ${e}");
                   }
-
-
-                  },
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: deviceWidth * 0.04, horizontal: deviceWidth * 0.13)),
+                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                      vertical: deviceWidth * 0.04,
+                      horizontal: deviceWidth * 0.13)),
                 ),
                 child: const Text(
                   'S\'inscrire',
