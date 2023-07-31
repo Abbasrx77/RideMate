@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ReservationCard extends StatefulWidget {
-  final String date;
-  final String heure;
-  final String lieuDepart;
-  final String lieuArrivee;
-  final String nomPrenom;
-  final String typeVehicule;
-  final int nombrePlaces;
+  final String? date;
+  final String? heure;
+  final String? lieuDepart;
+  final String? lieuArrivee;
+  final String? nomPrenom;
+  final String? typeVehicule;
+  final int? nombrePlaces;
 
   const ReservationCard({
     super.key,
@@ -63,14 +63,14 @@ class _ReservationCardState extends State<ReservationCard> {
                   color: Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(widget.date),
+                Text(widget.date ?? ''),
                 const Spacer(),
                 const Icon(
                   Icons.access_time,
                   color: Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(widget.heure),
+                Text(widget.heure ?? ''),
               ],
             ),
             const SizedBox(height: 20),
@@ -84,7 +84,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    widget.lieuDepart,
+                    widget.lieuDepart ?? '',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 )
@@ -107,7 +107,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  widget.lieuArrivee,
+                  widget.lieuArrivee ?? '',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -116,7 +116,7 @@ class _ReservationCardState extends State<ReservationCard> {
             Row(
               children: [
                 Text(
-                  widget.nomPrenom,
+                  widget.nomPrenom ?? '',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),

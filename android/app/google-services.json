@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "902821534046",
+    "project_id": "ridematea-4f93a",
+    "storage_bucket": "ridematea-4f93a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902821534046:android:740e33ddac0cbd1f5a17cf",
+        "android_client_info": {
+          "package_name": "com.ridemade.ridemate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902821534046-10h21o4io0fajogd6uovduql9ue1qod9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvL_OLmWu_BOfceERM9VBsVWS2EHunW2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902821534046-10h21o4io0fajogd6uovduql9ue1qod9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

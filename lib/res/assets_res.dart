@@ -6,8 +6,7 @@ class AssetsRes {
   static const String PLUGIN_NAME = 'ridemate';
   static const String PLUGIN_VERSION = '1.0.0+1';
   static const String COMMENT = 'assets/comment.jpg';
-  static const String CONDUCTEUR_ICON_IMAGE =
-      'assets/conducteur_icon_image.png';
+  static const String CONDUCTEUR_ICON_IMAGE = 'assets/conducteur_icon_image.png';
   static const String DEFAULT = 'assets/default.jpg';
   static const String I = 'assets/i.png';
   static const String IMG1 = 'assets/img1.jpg';
