@@ -9,7 +9,7 @@ class ApiService {
   //L'url utilisé ici n'est pas localhost mais l'adresse IP de l'ordinateur sur lequel tourne le serveur laravel
   //L'ordinateur est connecté à un réseau wifi et fait un partage de connexion au smartphone
   //Veuillez remplacer l'adresse IP de l'ordinateur par "localhost:8000" ou l'adresse du serveur concerné
-  final String baseUrl = "http://192.168.88.250:8000/api";
+  final String baseUrl = "http://192.168.88.235:8000/api";
   final storage = const FlutterSecureStorage();
 
   /*Future<String?> getAuthToken(String email, String password) async {

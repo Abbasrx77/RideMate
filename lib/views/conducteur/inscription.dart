@@ -341,7 +341,7 @@ class _InscriptionConducteurPageWidgetState
                         await showErrorDialog(context, "Identifiant invalide");
                       } else {
                         await showErrorDialog(context,
-                            "Oups, une erreur s'est produite à notre niveau, veuillez réessayer plus tard");
+                            "Oups, une erreur s'est produite à notre niveau, veuillez réessayer plus tard ${response.body}");
                       }
                     }
                   } catch (e) {
