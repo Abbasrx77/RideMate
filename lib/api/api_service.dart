@@ -9,7 +9,7 @@ class ApiService {
   //L'url utilisé ici n'est pas localhost mais l'adresse IP de l'ordinateur sur lequel tourne le serveur laravel
   //L'ordinateur est connecté à un réseau wifi et fait un partage de connexion au smartphone
   //Veuillez remplacer l'adresse IP de l'ordinateur par "localhost:8000" ou l'adresse du serveur concerné
-  final String baseUrl = "http://192.168.88.235:8000/api";
+  final String baseUrl = "http://192.168.88.250:8000/api";
   final storage = const FlutterSecureStorage();
 
   /*Future<String?> getAuthToken(String email, String password) async {
@@ -59,6 +59,21 @@ class ApiService {
       },
       body: body,
     );
+    return response;
+  }
+
+  Future<http.Response> notify_reservation(
+      {required Map<String, dynamic> dataToSend}) async {
+    final response = await http.post(
+      Uri.parse('https://fcm.googleapis.com/fcm/send'),
+      headers: {
+        'Authorization':
+            'key=AAAA0jRbWV4:APA91bEEMv1OriL--T0o8n6WN_cQWJqok0nsPbW84Bh-RNjhQ9q_g2Rd__rneLEwUhHxiPgsC2ds4U45Bak4gQON-HqO25OosBHFSeO5aAvQb_63_OBG1ip78ga4uEhkSr1AXMBIAilV',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(dataToSend),
+    );
+    print('${response.statusCode} ${response.body}');
     return response;
   }
 
@@ -146,6 +161,19 @@ class ApiService {
     final token = await storage.read(key: 'auth_token');
     final response = await http.post(
       Uri.parse('$baseUrl/$endpoint'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: body,
+    );
+    return response;
+  }
+
+  Future<http.Response> update({required Map<String, String?> body}) async {
+    final token = await storage.read(key: 'auth_token');
+    final response = await http.post(
+      Uri.parse('$baseUrl/update'),
       headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/x-www-form-urlencoded',

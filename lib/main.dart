@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ridemate/api/firebase_api.dart';
 import 'package:ridemate/routes/routes_constants.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
@@ -8,8 +10,14 @@ import 'package:ridemate/views/passager/choix_position_depart.dart';
 import 'package:ridemate/views/passager/inscription.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
 
-void main() {
+import '/firebase_options.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseApi().initNotifications();
+
+  //FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   runApp(MaterialApp(
     localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
@@ -62,7 +70,12 @@ class Acceuil extends StatefulWidget {
 
 class _AcceuilState extends State<Acceuil> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const ConnexionPageWidget();
   }
 }

@@ -51,7 +51,7 @@ class _TrajetCardState extends State<TrajetCard> {
       isTrajetDeleted = true;
     });
     final response = await apiService.delete('supprimer_offres',body: body);
-
+    //await showErrorDialog(context, "Données : ${response.body}");
   }
 
   @override

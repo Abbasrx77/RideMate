@@ -55,7 +55,6 @@ dependencies:
   flutter_local_notifications: ^15.1.0+1
 
 
-
 flutter_native_splash:
   color: "#000000"
   image: assets/splash_screen_logo.png

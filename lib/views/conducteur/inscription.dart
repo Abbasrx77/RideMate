@@ -309,6 +309,8 @@ class _InscriptionConducteurPageWidgetState
                   final vehicule = dropdownValue.toLowerCase();
                   final places = dropdownValue2;
                   final password = _password.text.toString();
+                  final fcmToken =
+                      await storage.read(key: 'fcmToken') ?? 'test';
 
                   Map<String, String> body = {
                     'matricule': matricule,
@@ -317,7 +319,8 @@ class _InscriptionConducteurPageWidgetState
                     'vehicule': vehicule,
                     'place': places,
                     'fonction': 'conducteur',
-                    'password': password
+                    'password': password,
+                    'fcmToken': fcmToken
                   };
 
                   try {

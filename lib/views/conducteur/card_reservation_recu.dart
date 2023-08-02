@@ -1,5 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:ridemate/api/api_service.dart';
+
+final apiService = ApiService();
 class ReservationCard extends StatefulWidget {
   final String? date;
   final String? heure;
@@ -27,12 +31,26 @@ class ReservationCard extends StatefulWidget {
 class _ReservationCardState extends State<ReservationCard> {
   bool isTrajetDeleted = false;
 
-  void _supprimerTrajet() {
-    // Mettez ici la logique pour supprimer le trajet
+  /*void _soumettreReservation() async{
+
+    final date_depart = widget.date;
+    final position_depart = widget.lieuDepart;
+    final position_arrivee = widget.lieuArrivee;
+    final nomPrenom = widget.nomPrenom;
+    final place = widget.nombrePlaces.toString();
+    Map<String,String?> body = {
+      'date_depart': date_depart,
+      'point_depart': position_depart,
+      'point_arrivee': position_arrivee,
+      'nomPrenom':nomPrenom,
+      'place':place
+    };
     setState(() {
       isTrajetDeleted = true;
     });
-  }
+    final response = await apiService.delete('traiter_reservation',body: body);
+
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +162,26 @@ class _ReservationCardState extends State<ReservationCard> {
                   width: 150,
                   child: ElevatedButton(
                     //onPressed: _supprimerTrajet,
-                    onPressed: () {},
+                    onPressed: () async{
+
+                      final date_depart = widget.date;
+                      final position_depart = widget.lieuDepart;
+                      final position_arrivee = widget.lieuArrivee;
+                      final nomPrenom = widget.nomPrenom;
+                      final place = widget.nombrePlaces.toString();
+                      Map<String,String?> body = {
+                        'traitement':'refuser',
+                        'date_depart': date_depart,
+                        'point_depart': position_depart,
+                        'point_arrivee': position_arrivee,
+                        'nomPrenom':nomPrenom,
+                        'place':place
+                      };
+                      setState(() {
+                        isTrajetDeleted = true;
+                      });
+                      final response = await apiService.delete('traiter_reservation',body: body);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                     ),
@@ -159,7 +196,44 @@ class _ReservationCardState extends State<ReservationCard> {
                   width: 150,
                   child: ElevatedButton(
                     //onPressed: _supprimerTrajet,
-                    onPressed: () {},
+                    onPressed: () async{
+
+                      final date_depart = widget.date;
+                      final position_depart = widget.lieuDepart;
+                      final position_arrivee = widget.lieuArrivee;
+                      final nomPrenom = widget.nomPrenom;
+                      final place = widget.nombrePlaces.toString();
+                      Map<String,String?> body = {
+                        'traitement':'accepter',
+                        'date_depart': date_depart,
+                        'point_depart': position_depart,
+                        'point_arrivee': position_arrivee,
+                        'nomPrenom':nomPrenom,
+                        'place':place
+                      };
+                      setState(() {
+                        isTrajetDeleted = true;
+                      });
+                      final response = await apiService.delete('traiter_reservation',body: body);
+
+                      var data = jsonDecode(response.body);
+                      var fcm_Token = data;
+
+
+                      final String title = 'Réservation acceptée';
+                      final String body1 = 'Votre réservation a été acceptée';
+                      final String fcmToken = '$fcm_Token';
+
+                      final Map<String, dynamic> data1 = {
+                        'notification': {
+                          'title': title,
+                          'body': body1,
+                          //'click_action': 'FLUTTER_NOTIFICATION_CLICK', // Optionnel, spécifie l'action lorsqu'on clique sur la notification
+                        },
+                        'to': fcmToken,
+                      };
+                      apiService.notify_reservation(dataToSend: data1);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                     ),
