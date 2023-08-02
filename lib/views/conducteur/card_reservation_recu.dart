@@ -1,9 +1,33 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/api/api_service.dart';
+import 'package:ridemate/utilities/navigation.dart';
+import 'package:ridemate/views/shared_views/test_messages.dart';
 
+
+const storage = FlutterSecureStorage();
 final apiService = ApiService();
+void storeValue(String value) async {
+  // Read data
+  String? jsonString = await storage.read(key: 'uid');
+
+  List<String> uidList;
+
+  // Check if the key 'uid' already has a value
+  if (jsonString == null) {
+    // 'uid' is not already in secure storage, create new list and add the value
+    uidList = [value];
+  } else {
+    // 'uid' is already in secure storage, retrieve it, convert to list and add new value
+    uidList = List<String>.from(jsonDecode(jsonString));
+    uidList = uidList.toSet().toList(); // using a Set to avoid duplicated.
+    uidList.add(value);
+  }
+  // Convert the updated list back to a JSON string and store it
+  await storage.write(key: 'uid', value: jsonEncode(uidList));
+}
 class ReservationCard extends StatefulWidget {
   final String? date;
   final String? heure;
@@ -217,7 +241,8 @@ class _ReservationCardState extends State<ReservationCard> {
                       final response = await apiService.delete('traiter_reservation',body: body);
 
                       var data = jsonDecode(response.body);
-                      var fcm_Token = data;
+                      var fcm_Token = data[0];
+                      var uid = data[1];
 
 
                       final String title = 'Réservation acceptée';
@@ -233,6 +258,10 @@ class _ReservationCardState extends State<ReservationCard> {
                         'to': fcmToken,
                       };
                       apiService.notify_reservation(dataToSend: data1);
+                      storeValue(uid);
+                      final acx = await storage.read(key: 'uid');
+                      print(acx);
+                      //Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const Messages(), settings: null));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

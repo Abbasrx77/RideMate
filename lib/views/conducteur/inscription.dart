@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
@@ -19,6 +21,7 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
 
   final apiService = ApiService();
   final storage = const FlutterSecureStorage();
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -306,6 +309,15 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                   final password = _password.text.toString();
                   final fcmToken = await storage.read(key: 'fcmToken') ?? 'test';
 
+                  final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      email: email,
+                      password: password
+                  );
+                  _fireStore.collection('users').doc(user.user!.uid).set({
+                    'uid' : user.user!.uid,
+                    'email' : email,
+                  });
+
                   Map<String,String> body = {
                     'matricule':matricule,
                     'email':email,
@@ -314,7 +326,8 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                     'place':places,
                     'fonction': 'conducteur',
                     'password':password,
-                    'fcmToken':fcmToken
+                    'fcmToken':fcmToken,
+                    'uid':user.user!.uid
                   };
 
                   try{
@@ -322,6 +335,7 @@ class _InscriptionConducteurPageWidgetState extends State<InscriptionConducteurP
                     if(!_formKey.currentState!.validate()){
                       await showErrorDialog(context, "Veuillez suivre les indications.");
                     }else{
+
                       final response = await apiService.inscription('inscription',body: body);
                       if(response.statusCode == 201){
                         //REDIRECTION

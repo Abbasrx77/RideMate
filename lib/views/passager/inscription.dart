@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
@@ -15,6 +17,7 @@ class InscriptionPassagerPageWidget extends StatefulWidget {
 class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageWidget> {
   final storage = const FlutterSecureStorage();
   final apiService = ApiService();
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 
@@ -214,12 +217,20 @@ class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageW
                   ElevatedButton(
                     onPressed: () async{
                       //INSCRIPTION
-
                       final matricule = _matricule.text.toString();
                       final email = _email.text.toLowerCase();
                       final zone = _zone.text.toLowerCase();
                       final password = _password.text.toString();
                       final fcmToken = await storage.read(key: 'fcmToken') ?? 'test';
+
+                      final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                          email: email,
+                          password: password
+                      );
+                      _fireStore.collection('users').doc(user.user!.uid).set({
+                        'uid' : user.user!.uid,
+                        'email' : email,
+                      });
 
                       Map<String,String> body = {
                         'matricule':matricule,
@@ -227,7 +238,8 @@ class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageW
                         'zone':zone,
                         'fonction': 'passager',
                         'password':password,
-                        'fcmToken':fcmToken
+                        'fcmToken':fcmToken,
+                        'uid':user.user!.uid
                       };
 
                       try{
@@ -235,6 +247,7 @@ class _InscriptionPassagerPageWidgetState extends State<InscriptionPassagerPageW
                         if(!_formKey.currentState!.validate()){
                           await showErrorDialog(context, "Veuillez suivre les indications.");
                         }else{
+
                           final response = await apiService.inscription('inscription',body: body);
                           if(response.statusCode == 201){
                             //REDIRECTION
