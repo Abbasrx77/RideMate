@@ -6,6 +6,7 @@ import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/card_offre_trajet.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
+import 'package:ridemate/views/conducteur/test_messages.dart';
 
 class OffreDeTrajet extends StatefulWidget {
   const OffreDeTrajet({super.key});
@@ -101,7 +102,7 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
                 Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ReservationObtenue(), settings: null));
                 break;
               case 3:
-              //A FAIRE APRES
+                Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const Messages(), settings: null));
                 break;
             }
           },

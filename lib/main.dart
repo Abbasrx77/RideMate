@@ -14,7 +14,7 @@ import 'package:ridemate/views/passager/reservation_envoyee.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ridemate/views/shared_views/test_messages.dart';
+import 'package:ridemate/views/conducteur/test_messages.dart';
 import '/firebase_options.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
