@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/api/api_service.dart';
@@ -17,6 +18,7 @@ class _InscriptionPassagerPageWidgetState
     extends State<InscriptionPassagerPageWidget> {
   final storage = const FlutterSecureStorage();
   final apiService = ApiService();
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   //TEXT EDITING CONTROLLER

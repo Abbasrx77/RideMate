@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
@@ -7,6 +9,7 @@ import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/views/passager/choix_position_depart.dart';
 import 'dart:convert';
 import 'package:ridemate/views/passager/inscription.dart';
+import 'package:ridemate/views/shared_views/test_messages.dart';
 
 
 class ConnexionPageWidget extends StatefulWidget {
@@ -24,6 +27,7 @@ class _ConnexionPageWidgetState extends State<ConnexionPageWidget> {
   //TEXT EDITING CONTROLLER
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   //REGEX DE VALIDATION EMAIL
   bool isEmailValid(String email) {
@@ -153,12 +157,22 @@ class _ConnexionPageWidgetState extends State<ConnexionPageWidget> {
                         if(!_formKey.currentState!.validate()){
                           await showErrorDialog(context, "Veuillez suivre les indications.");
                         }else{
+
+                          final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                              email: email,
+                              password: password);
+                          _fireStore.collection('users').doc(user.user!.uid).set({
+                            'uid' : user.user!.uid,
+                            'email' : email,
+                          },SetOptions(merge: true));
+
                           final response = await apiService.connexion(body: body);
                           if(response.statusCode == 200){
                             var data = jsonDecode(response.body);
                             String fonction = data[0];
                             if(fonction == 'conducteur'){
 
+                              //Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const Messages(), settings: null));
                               Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const ChoixPositionDepart(), settings: null));
 
                             }else if(fonction == 'passager'){

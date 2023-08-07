@@ -9,7 +9,8 @@ class ApiService {
   //L'url utilisé ici n'est pas localhost mais l'adresse IP de l'ordinateur sur lequel tourne le serveur laravel
   //L'ordinateur est connecté à un réseau wifi et fait un partage de connexion au smartphone
   //Veuillez remplacer l'adresse IP de l'ordinateur par "localhost:8000" ou l'adresse du serveur concerné
-  final String baseUrl = "http://192.168.88.250:8000/api";
+
+  final String baseUrl = "http://192.168.88.235:8000/api";
   final storage = const FlutterSecureStorage();
 
   /*Future<String?> getAuthToken(String email, String password) async {
@@ -181,6 +182,34 @@ class ApiService {
       body: body,
     );
     return response;
+  }
+
+  //API informations des utilisateurs
+  /*Future<http.Response> infos({required Map<String, String?> body}) async {
+    final token = await storage.read(key: 'auth_token');
+    final response = await http.get(
+      Uri.parse('$baseUrl/infos'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      //body: body,
+    );
+    return response;
+  }*/
+  Future<Map<String, dynamic>> infos() async {
+    final token = await storage.read(key: 'auth_token');
+    final response = await http.get(
+      Uri.parse('$baseUrl/infos'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    Map<String, dynamic> conducteurInfo = json.decode(response.body);
+    print(conducteurInfo);
+    return conducteurInfo;
   }
 
   Future<List<String>> getPlaceSuggestions(String input) async {
