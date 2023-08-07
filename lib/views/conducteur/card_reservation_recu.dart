@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/utilities/navigation.dart';
-import 'package:ridemate/views/shared_views/test_messages.dart';
+import 'package:ridemate/views/conducteur/test_messages.dart';
 
 
 const storage = FlutterSecureStorage();
@@ -244,6 +244,10 @@ class _ReservationCardState extends State<ReservationCard> {
                       var fcm_Token = data[0];
                       var uid = data[1];
 
+                      print(data);
+                      print(fcm_Token);
+                      print(uid);
+
 
                       final String title = 'Réservation acceptée';
                       final String body1 = 'Votre réservation a été acceptée';
@@ -261,7 +265,7 @@ class _ReservationCardState extends State<ReservationCard> {
                       storeValue(uid);
                       final acx = await storage.read(key: 'uid');
                       print(acx);
-                      //Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const Messages(), settings: null));
+                      Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const Messages(), settings: null));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

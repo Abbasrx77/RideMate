@@ -6,6 +6,7 @@ import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/card_offre_trajet.dart';
 import 'package:ridemate/views/conducteur/profile_page_conducteur.dart';
 import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
+import 'package:ridemate/views/conducteur/test_messages.dart';
 
 class OffreDeTrajet extends StatefulWidget {
   const OffreDeTrajet({super.key});
@@ -115,6 +116,11 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
                     context,
                     NoAnimationMaterialPageRoute(
                         builder: (context) => const ConducteurProfilePage(),
+                        settings: null));
+                Navigator.pushReplacement(
+                    context,
+                    NoAnimationMaterialPageRoute(
+                        builder: (context) => const Messages(),
                         settings: null));
                 break;
             }

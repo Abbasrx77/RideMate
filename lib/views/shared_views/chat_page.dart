@@ -42,9 +42,17 @@ class _ChatPageState extends State<ChatPage> {
               child:_buildMessageList(),
           ),
           //user input
-          _buildMessageInput(),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0), // Customize the border radius
+              side: const BorderSide(color: Colors.grey, width: 1.0), // Add a border
+            ),
+            color: Colors.grey[200], // Set the background color to grey
+            margin: const EdgeInsets.symmetric(horizontal: 0,),
+            child: _buildMessageInput(),
+          ),
 
-          const SizedBox(height: 25,),
+          const SizedBox(height: 7,),
         ],
       ),
     );
@@ -54,11 +62,11 @@ class _ChatPageState extends State<ChatPage> {
     return StreamBuilder(stream: _chatService.getMessages(widget.receiverUserID, _firebaseAuth.currentUser!.uid,),
         builder: (context,snapshot){
         if(snapshot.hasError){
-          return Text("Error ${snapshot.error}");
+          return Text("Erreur ${snapshot.error}");
         }
 
         if(snapshot.connectionState == ConnectionState.waiting){
-          return const Text('Chargement...');
+          return const Center(child: CircularProgressIndicator());
         }
 
         return ListView(
@@ -100,21 +108,22 @@ class _ChatPageState extends State<ChatPage> {
       child: Row(
         children: [
           Expanded(
-              child: TextFormField(
-                controller: _messageController,
-                obscureText: false,
-                decoration: const InputDecoration(
-                  label: Text("Entrez un message"),
-                ),
+            child: TextField(
+              controller: _messageController,
+              keyboardType: TextInputType.multiline, // Allow multiline input
+              maxLines: null, // Remove the line limit for the TextField
+              decoration: const InputDecoration(
+                border: InputBorder.none, // Remove the border around the TextField
+                hintText: "Message", // Placeholder text
               ),
+            ),
           ),
-
           //send button
           IconButton(
             onPressed: sendMessage,
-            icon: const Icon(Icons.arrow_upward,
-            size: 40,),
+            icon: const Icon(Icons.send, size: 40,),
           ),
+          //send button
         ],
       ),
     );

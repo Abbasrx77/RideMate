@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/views/passager/reservation_envoyee.dart';
+import 'package:ridemate/views/passager/test_messages_passager.dart';
 import 'package:ridemate/views/passager/trajets_trouves.dart';
 
 class AcceuilPassager extends StatefulWidget {
@@ -199,6 +200,11 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
               break;
             case 2:
               //A FAIRE APRES
+              Navigator.push(
+                  context,
+                  NoAnimationMaterialPageRoute(
+                      builder: (context) => const MessagesPassager(),
+                      settings: null));
               break;
             case 3:
               //A FAIRE APRES

@@ -9,7 +9,8 @@ import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/views/passager/choix_position_depart.dart';
 import 'dart:convert';
 import 'package:ridemate/views/passager/inscription.dart';
-import 'package:ridemate/views/shared_views/test_messages.dart';
+import 'package:ridemate/views/conducteur/test_messages.dart';
+import 'package:ridemate/views/passager/test_messages_passager.dart';
 
 
 class ConnexionPageWidget extends StatefulWidget {

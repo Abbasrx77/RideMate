@@ -8,6 +8,7 @@ import 'package:ridemate/utilities/succes_dialog.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
 import 'package:ridemate/views/conducteur/profile_page_conducteur.dart';
 import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
+import 'package:ridemate/views/conducteur/test_messages.dart';
 
 class AcceuilConducteurPageWidget extends StatefulWidget {
   const AcceuilConducteurPageWidget({super.key});
@@ -361,6 +362,10 @@ class _AcceuilConducteurPageWidgetState
             case 3:
               //A FAIRE APRES
 
+              Navigator.push(
+                  context,
+                  NoAnimationMaterialPageRoute(
+                      builder: (context) => const Messages(), settings: null));
               break;
             case 4:
               //A FAIRE APRES

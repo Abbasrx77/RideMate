@@ -6,6 +6,7 @@ import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/card_reservation_recu.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
 import 'package:ridemate/views/conducteur/profile_page_conducteur.dart';
+import 'package:ridemate/views/conducteur/test_messages.dart';
 
 class ReservationObtenue extends StatefulWidget {
   const ReservationObtenue({super.key});
@@ -106,6 +107,11 @@ class _ReservationObtenueState extends State<ReservationObtenue> {
                 break;
               case 3:
                 //A FAIRE APRES
+                Navigator.pushReplacement(
+                    context,
+                    NoAnimationMaterialPageRoute(
+                        builder: (context) => const Messages(),
+                        settings: null));
                 break;
               case 4:
               //A FAIRE APRES
