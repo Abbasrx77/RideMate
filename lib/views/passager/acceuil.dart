@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:ridemate/utilities/navigation.dart';
+import 'package:ridemate/views/passager/profile_page_passager.dart';
 import 'package:ridemate/views/passager/reservation_envoyee.dart';
 import 'package:ridemate/views/passager/test_messages_passager.dart';
 import 'package:ridemate/views/passager/trajets_trouves.dart';
@@ -232,7 +233,11 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                       settings: null));
               break;
             case 3:
-              //A FAIRE APRES
+              Navigator.push(
+                  context,
+                  NoAnimationMaterialPageRoute(
+                      builder: (context) => const PassagerProfilPage(),
+                      settings: null));
               break;
           }
         },

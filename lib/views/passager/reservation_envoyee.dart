@@ -4,6 +4,7 @@ import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/views/passager/acceuil.dart';
 import 'package:ridemate/views/passager/card_reservation_envoye.dart';
+import 'package:ridemate/views/passager/profile_page_passager.dart';
 import 'package:ridemate/views/passager/test_messages_passager.dart';
 
 class ReservationEnvoye extends StatefulWidget {
@@ -96,7 +97,7 @@ class _ReservationEnvoyeState extends State<ReservationEnvoye> {
               Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const MessagesPassager(), settings: null));
               break;
             case 3:
-            //A FAIRE APRES
+              Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const PassagerProfilPage(), settings: null));
               break;
           }
         },

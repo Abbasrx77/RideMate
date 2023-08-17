@@ -6,6 +6,7 @@ import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/card_offre_trajet.dart';
 import 'package:ridemate/views/passager/acceuil.dart';
+import 'package:ridemate/views/passager/profile_page_passager.dart';
 import 'package:ridemate/views/shared_views/chat_page.dart';
 import 'dart:convert';
 import 'package:ridemate/api/api_service.dart';
@@ -65,6 +66,7 @@ class _MessagesPassagerState extends State<MessagesPassager> {
             case 2:
               break;
             case 3:
+              Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const PassagerProfilPage(), settings: null));
               break;
           }
         },
