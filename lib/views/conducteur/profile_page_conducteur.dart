@@ -465,31 +465,32 @@ class _ModificationPageState extends State<ModificationPage> {
                         String nombrePlaces = _nombrePlacesController.text;
                         String email = _emailController.text.toLowerCase();
 
-                        if(!isEmailValid(email)){
-                          await showErrorDialog(context, "Email invalide");
-                        }else{
-                          if( int.parse(nombrePlaces) < 1 || int.parse(nombrePlaces) > 4){
-                            await showErrorDialog(context, "Entrez un nombre compris entre 1 et 4");
+                        if(residence != widget.residence || typeVehicule != widget.vehicule || int.parse(nombrePlaces) != widget.place || email != widget.email){
+                          if(!isEmailValid(email)){
+                            await showErrorDialog(context, "Email invalide");
                           }else{
-                            Map<String, dynamic> body = {
-                              'zone':residence,
-                              'vehicule':typeVehicule,
-                              'place':nombrePlaces,
-                              'email':email
-                            };
-                            final response = await apiService.update(body: body);
-                            if(response.statusCode == 200){
-                              await showSuccesDialog(context, "Données mises à jour avec succès");
-                              residence = '';
-                              typeVehicule = '';
-                              nombrePlaces = '';
-                              email = '';
+                            if( int.parse(nombrePlaces) < 1 || int.parse(nombrePlaces) > 4){
+                              await showErrorDialog(context, "Entrez un nombre compris entre 1 et 4");
                             }else{
-                              await showErrorDialog(context, "Erreur: ${response.body}");
+                              Map<String, dynamic> body = {
+                                'zone':residence,
+                                'vehicule':typeVehicule,
+                                'place':nombrePlaces,
+                                'email':email
+                              };
+                              final response = await apiService.update(body: body);
+                              if(response.statusCode == 200){
+                                await showSuccesDialog(context, "Données mises à jour avec succès");
+                                residence = '';
+                                typeVehicule = '';
+                                nombrePlaces = '';
+                                email = '';
+                              }else{
+                                await showErrorDialog(context, "Oups, une erreur s'est produite à notre niveau");
+                              }
                             }
                           }
                         }
-
                       },
                       child: Text('Enregistrer les modifications'),
                     ),
