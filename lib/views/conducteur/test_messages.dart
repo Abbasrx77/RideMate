@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
+import 'package:ridemate/views/conducteur/profile_page_conducteur.dart';
 import 'package:ridemate/views/shared_views/chat_page.dart';
 import 'dart:convert';
 
@@ -71,7 +72,7 @@ class _MessagesState extends State<Messages> {
             case 3:
               break;
             case 4:
-            //A FAIRE APRES
+              Navigator.push(context, NoAnimationMaterialPageRoute(builder: (context) => const ConducteurProfilePage(), settings: null));
               break;
           }
         },

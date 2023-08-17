@@ -108,7 +108,11 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
                         settings: null));
                 break;
               case 3:
-                //A FAIRE APRES
+                Navigator.pushReplacement(
+                    context,
+                    NoAnimationMaterialPageRoute(
+                        builder: (context) => const Messages(),
+                        settings: null));
                 break;
               case 4:
                 //A FAIRE APRES
@@ -116,11 +120,6 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
                     context,
                     NoAnimationMaterialPageRoute(
                         builder: (context) => const ConducteurProfilePage(),
-                        settings: null));
-                Navigator.pushReplacement(
-                    context,
-                    NoAnimationMaterialPageRoute(
-                        builder: (context) => const Messages(),
                         settings: null));
                 break;
             }

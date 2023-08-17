@@ -19,6 +19,7 @@ void main() async {
 
   //FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
     ],
@@ -30,6 +31,7 @@ void main() async {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
+    navigatorObservers: [DismissKeyboardOnBack()],
     routes: {
       inscription_conducteur_route: (context) {
         return const InscriptionConducteurPageWidget();
@@ -77,5 +79,15 @@ class _AcceuilState extends State<Acceuil> {
   @override
   Widget build(BuildContext context) {
     return const ConnexionPageWidget();
+  }
+}
+class DismissKeyboardOnBack extends NavigatorObserver {
+  @override
+  void didStartUserGesture(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    final BuildContext? context = route.navigator?.context;
+    if (context != null) {
+      FocusScope.of(context).unfocus();
+    }
+    super.didStartUserGesture(route, previousRoute);
   }
 }

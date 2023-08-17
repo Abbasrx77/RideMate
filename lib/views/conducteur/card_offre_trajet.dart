@@ -36,8 +36,8 @@ class _TrajetCardState extends State<TrajetCard> {
   void _supprimerTrajet() async{
 
     final date_depart = widget.date;
-    final position_depart = widget.lieuDepart;
-    final position_arrivee = widget.lieuArrivee;
+    final position_depart = widget.lieuDepart!.toLowerCase();
+    final position_arrivee = widget.lieuArrivee!.toLowerCase();
     final description = widget.description;
     final place = widget.nombrePlaces.toString();
     Map<String,String?> body = {

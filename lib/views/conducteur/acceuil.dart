@@ -360,8 +360,6 @@ class _AcceuilConducteurPageWidgetState
                       settings: null));
               break;
             case 3:
-              //A FAIRE APRES
-
               Navigator.push(
                   context,
                   NoAnimationMaterialPageRoute(

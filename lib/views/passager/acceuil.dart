@@ -31,9 +31,23 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
 
   @override
   Widget build(BuildContext context) {
+
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: SizedBox(
+            height: deviceWidth *
+                0.1, // you can increase or decrease the height as you need
+            child: Image.asset('assets/main_logo.png'),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -158,24 +172,35 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () async {
-                          await storage.write(
-                              key: 'heure_depart',
-                              value: _heureController.text);
-                          await storage.write(
-                              key: 'date_depart', value: _dateController.text);
-                          await storage.write(
-                              key: 'zone', value: _lieuController.text);
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 85.0),
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              await storage.write(
+                                  key: 'heure_depart',
+                                  value: _heureController.text);
+                              await storage.write(
+                                  key: 'date_depart', value: _dateController.text);
+                              await storage.write(
+                                  key: 'zone', value: _lieuController.text);
 
-                          Navigator.push(
-                              context,
-                              NoAnimationMaterialPageRoute(
-                                  builder: (context) =>
+                              Navigator.push(
+                                  context,
+                                  NoAnimationMaterialPageRoute(
+                                      builder: (context) =>
                                       const TrajetsTrouvesPassager(),
-                                  settings: null));
-                        },
-                        child: const Text('Rechercher'),
+                                      settings: null));
+                            },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        padding: EdgeInsets.symmetric(
+                          vertical: deviceWidth * 0.04,
+                          horizontal: 5.0, // Adjust the horizontal padding to control the button width
+                        ),
+                        // Add more style properties as needed
+                    ),
+                    child: Text('Rechercher'),
+                  ),
                       ),
                     ],
                   ),

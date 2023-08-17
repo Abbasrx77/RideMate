@@ -10,7 +10,7 @@ class ApiService {
   //L'ordinateur est connecté à un réseau wifi et fait un partage de connexion au smartphone
   //Veuillez remplacer l'adresse IP de l'ordinateur par "localhost:8000" ou l'adresse du serveur concerné
 
-  final String baseUrl = "http://192.168.88.235:8000/api";
+  final String baseUrl = "http://192.168.88.210:8000/api";
   final storage = const FlutterSecureStorage();
 
   /*Future<String?> getAuthToken(String email, String password) async {
@@ -171,7 +171,7 @@ class ApiService {
     return response;
   }
 
-  Future<http.Response> update({required Map<String, String?> body}) async {
+  Future<http.Response> update({required Map<String, dynamic> body}) async {
     final token = await storage.read(key: 'auth_token');
     final response = await http.post(
       Uri.parse('$baseUrl/update'),
@@ -181,6 +181,7 @@ class ApiService {
       },
       body: body,
     );
+    print(response.statusCode);
     return response;
   }
 
@@ -208,7 +209,6 @@ class ApiService {
     );
 
     Map<String, dynamic> conducteurInfo = json.decode(response.body);
-    print(conducteurInfo);
     return conducteurInfo;
   }
 

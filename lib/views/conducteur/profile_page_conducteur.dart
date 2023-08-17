@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/utilities/navigation.dart';
+import 'package:ridemate/utilities/succes_dialog.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
 import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
+import 'package:intl/intl.dart';
 
-import '../../api/api_service.dart';
+import 'package:ridemate/api/api_service.dart';
+import 'package:ridemate/views/conducteur/test_messages.dart';
 
 class ConducteurProfilePage extends StatefulWidget {
   const ConducteurProfilePage({super.key});
@@ -25,7 +29,7 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
   String prenom = '';
   String residence = '';
   String typeVehicule = '';
-  String nombrePlaces = '';
+  int nombrePlaces = 0;
   String email = '';
   //String image = ''; // Nouvelle variable pour l'image
   //double nombreEtoiles = 0.0; // Nouvelle variable pour le nombre d'étoiles
@@ -35,7 +39,11 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
     super.initState();
     loadConducteurInfo();
   }
-
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(AssetImage('assets/img1.jpg'), context);
+  }
   Future<void> loadConducteurInfo() async {
     try {
       Map<String, dynamic> conducteurInfo = await apiService.infos();
@@ -61,12 +69,16 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
+    precacheImage(AssetImage("assets/img1-min.jpg"), context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text(
-          "Profile",
-          style: TextStyle(color: Colors.black),
+        title: Padding(
+          padding: EdgeInsets.only(left: deviceWidth * 0.24),
+          child: const Text(
+            "Profil",
+            style: TextStyle(color: Colors.black),
+          ),
         ),
       ),
       body: Container(
@@ -80,7 +92,7 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
               height: deviceHeight * 0.2,
               // Limite la hauteur de l'image au milieu de l'écran
               child: Image.asset(
-                'assets/img1.jpg',
+                'assets/img1-min.jpg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -125,24 +137,14 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                       unratedColor: Colors.grey,
                     ),
                     const SizedBox(
-                      width: 0,
+                      width: 8,
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.amber.withOpacity(
-                            0.2), // Couleur d'arrière-plan du bouton
-                        padding: const EdgeInsets.all(
-                            0), // Espacement intérieur du bouton
-                        minimumSize: const Size(30, 15),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        "$noteValue",
-                        style: TextStyle(
-                          color: Colors.grey.shade400,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      "$noteValue",
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -172,10 +174,10 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Résidence : ',
                                   style: TextStyle(
                                     fontSize: 14,
@@ -183,8 +185,8 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                                   ),
                                 ),
                                 Text(
-                                  'Vodjè',
-                                  style: TextStyle(
+                                  "$residence",
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -194,18 +196,18 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const Row(
+                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'Type de vehicule : ',
                                   style: TextStyle(
                                     fontSize: 14,
                                   ),
                                 ),
                                 Text(
-                                  'Voiture',
-                                  style: TextStyle(
+                                  toBeginningOfSentenceCase("$typeVehicule") ?? "",
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -215,18 +217,18 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  'Nombre de place : ',
+                                const Text(
+                                  'Nombre de places : ',
                                   style: TextStyle(
                                     fontSize: 14,
                                   ),
                                 ),
                                 Text(
-                                  '4',
-                                  style: TextStyle(
+                                  "$nombrePlaces",
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -236,18 +238,18 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   'E-mail : ',
                                   style: TextStyle(
                                     fontSize: 14,
                                   ),
                                 ),
                                 Text(
-                                  'beunadorsodji@gmail.com',
-                                  style: TextStyle(
+                                  "$email",
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -262,7 +264,7 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ModificationPage()),
+                                      builder: (context) => ModificationPage(residence: residence,vehicule: typeVehicule,place: nombrePlaces,email: email,)),
                                 );
                               },
                               child: const Text(
@@ -310,15 +312,13 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                       settings: null));
               break;
             case 3:
-              //A FAIRE APRES
-              break;
-            case 4:
-              //A FAIRE APRES
               Navigator.push(
                   context,
                   NoAnimationMaterialPageRoute(
-                      builder: (context) => const ConducteurProfilePage(),
+                      builder: (context) => const Messages(),
                       settings: null));
+              break;
+            case 4:
               break;
           }
         },
@@ -364,93 +364,140 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
 // Pages Modifications
 
 class ModificationPage extends StatefulWidget {
-  const ModificationPage({super.key});
+  final String residence;
+  final String vehicule;
+  final int place;
+  final String email;
+  const ModificationPage(
+      {
+        super.key,
+        required this.residence,
+        required this.vehicule,
+        required this.place,
+        required this.email,
+      }
+      );
 
   @override
   _ModificationPageState createState() => _ModificationPageState();
 }
 
 class _ModificationPageState extends State<ModificationPage> {
-  final TextEditingController _nomController = TextEditingController();
-  final TextEditingController _prenomController = TextEditingController();
+  final apiService = ApiService();
   final TextEditingController _residenceController = TextEditingController();
   final TextEditingController _typeVehiculeController = TextEditingController();
   final TextEditingController _nombrePlacesController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  bool isEmailValid(String email) {
+    final RegExp regex =
+    RegExp(r'^[a-zA-Z/d.a-zA-Z\d_%-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,4}$');
+    return regex.hasMatch(email);
+  }
 
   @override
+  void initState() {
+    super.initState();
+    _residenceController.text = widget.residence;
+    _typeVehiculeController.text = widget.vehicule;
+    _nombrePlacesController.text = widget.place.toString();
+    _emailController.text = widget.email;
+  }
+
+  @override
+  void dispose() {
+    _residenceController.dispose();
+    _typeVehiculeController.dispose();
+    _nombrePlacesController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Modifier vos informations personnelles'),
-        ),
-        body: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TextField(
-                    controller: _nomController,
-                    decoration: const InputDecoration(
-                      labelText: 'Nom',
+    return WillPopScope(
+      onWillPop: ()async{
+        FocusScope.of(context).unfocus();
+        await Future.delayed(const Duration(milliseconds: 100));
+        return Future.value(true);
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Modifier vos informations personnelles'),
+          ),
+          body: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    TextField(
+                      controller: _residenceController,
+                      decoration: const InputDecoration(
+                        labelText: 'Résidence',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: _prenomController,
-                    decoration: const InputDecoration(
-                      labelText: 'Prénom',
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: _typeVehiculeController,
+                      decoration: const InputDecoration(
+                        labelText: 'Type de véhicule',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: _residenceController,
-                    decoration: const InputDecoration(
-                      labelText: 'Résidence',
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: _nombrePlacesController,
+                      decoration: const InputDecoration(
+                        labelText: 'Nombre de places',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: _typeVehiculeController,
-                    decoration: const InputDecoration(
-                      labelText: 'Type de véhicule',
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                        labelText: 'Adresse e-mail',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: _nombrePlacesController,
-                    decoration: const InputDecoration(
-                      labelText: 'Nombre de places',
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () async{
+                        String residence = _residenceController.text;
+                        String typeVehicule = _typeVehiculeController.text.toLowerCase();
+                        String nombrePlaces = _nombrePlacesController.text;
+                        String email = _emailController.text.toLowerCase();
+
+                        if(!isEmailValid(email)){
+                          await showErrorDialog(context, "Email invalide");
+                        }else{
+                          if( int.parse(nombrePlaces) < 1 || int.parse(nombrePlaces) > 4){
+                            await showErrorDialog(context, "Entrez un nombre compris entre 1 et 4");
+                          }else{
+                            Map<String, dynamic> body = {
+                              'zone':residence,
+                              'vehicule':typeVehicule,
+                              'place':nombrePlaces,
+                              'email':email
+                            };
+                            final response = await apiService.update(body: body);
+                            if(response.statusCode == 200){
+                              await showSuccesDialog(context, "Données mises à jour avec succès");
+                              residence = '';
+                              typeVehicule = '';
+                              nombrePlaces = '';
+                              email = '';
+                            }else{
+                              await showErrorDialog(context, "Erreur: ${response.body}");
+                            }
+                          }
+                        }
+
+                      },
+                      child: Text('Enregistrer les modifications'),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Adresse e-mail',
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Mettez ici la logique pour enregistrer les modifications
-                      String nom = _nomController.text;
-                      String prenom = _prenomController.text;
-                      String residence = _residenceController.text;
-                      String typeVehicule = _typeVehiculeController.text;
-                      String nombrePlaces = _nombrePlacesController.text;
-                      String email = _emailController.text;
-                      // Vous pouvez maintenant utiliser ces valeurs pour enregistrer les modifications
-                      // par exemple, vous pouvez les envoyer à une API ou les stocker localement.
-                    },
-                    child: Text('Enregistrer les modifications'),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 }
