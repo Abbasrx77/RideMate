@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:ridemate/utilities/navigation.dart';
+import 'package:ridemate/views/passager/position.dart';
 import 'package:ridemate/views/passager/profile_page_passager.dart';
 import 'package:ridemate/views/passager/reservation_envoyee.dart';
 import 'package:ridemate/views/passager/test_messages_passager.dart';
 import 'package:ridemate/views/passager/trajets_trouves.dart';
 
 class AcceuilPassager extends StatefulWidget {
-  const AcceuilPassager({super.key});
+  final String? lieuController;
+  const AcceuilPassager({
+    super.key,
+    this.lieuController
+  });
 
   @override
   State<AcceuilPassager> createState() => _AcceuilPassagerState();
@@ -19,16 +24,14 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
   int _currentIndex = 0;
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
+    _lieuController = TextEditingController(text: widget.lieuController ?? '');
   }
 
-  final TextEditingController _lieuController = TextEditingController();
+  late TextEditingController _lieuController = TextEditingController();
   final TextEditingController _heureController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
-  @override
-
-  //fonction pour faire la recherche
 
   @override
   Widget build(BuildContext context) {
@@ -171,6 +174,12 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              NoAnimationMaterialPageRoute(
+                                  builder: (context) => const PagePositionPassager(), settings: null));
+                        },
                       ),
                       const SizedBox(height: 20),
                       Padding(
