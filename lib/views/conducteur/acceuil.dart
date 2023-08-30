@@ -6,20 +6,24 @@ import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/utilities/succes_dialog.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
+import 'package:ridemate/views/conducteur/position.dart';
 import 'package:ridemate/views/conducteur/profile_page_conducteur.dart';
 import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
 import 'package:ridemate/views/conducteur/test_messages.dart';
 
 class AcceuilConducteurPageWidget extends StatefulWidget {
-  const AcceuilConducteurPageWidget({super.key});
+  final String? position;
+  const AcceuilConducteurPageWidget({
+    super.key,
+    this.position
+  });
 
   @override
   State<AcceuilConducteurPageWidget> createState() =>
       _AcceuilConducteurPageWidgetState();
 }
 
-class _AcceuilConducteurPageWidgetState
-    extends State<AcceuilConducteurPageWidget> {
+class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidget> {
   final storage = const FlutterSecureStorage();
   final apiService = ApiService();
 
@@ -33,10 +37,16 @@ class _AcceuilConducteurPageWidgetState
   String dropdownValue2 = '1';
 
   //TEXT EDITING CONTROLLER
-  final TextEditingController _position = TextEditingController();
+  late TextEditingController _position = TextEditingController();
   final TextEditingController _description = TextEditingController();
   final TextEditingController _heureController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+
+  @override
+  void initState(){
+    super.initState();
+    _position = TextEditingController(text: widget.position ?? '');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,6 +196,12 @@ class _AcceuilConducteurPageWidgetState
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              NoAnimationMaterialPageRoute(
+                                  builder: (context) => const PagePosition(), settings: null));
+                        },
                       ),
                       /*Autocomplete<String>(
                             optionsBuilder: (TextEditingValue textEditingValue) {

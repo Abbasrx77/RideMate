@@ -56,7 +56,6 @@ dependencies:
   cloud_firestore: ^4.8.4
   firebase_auth: ^4.7.2
 
-
 flutter_native_splash:
   color: "#000000"
   image: assets/splash_screen_logo.png
@@ -127,3 +126,4 @@ flutter:
     - assets/recherche.png
     - assets/splash_screen_logo.png
     - assets/img1-min.jpg
+    - assets/icons/location_pin.svg
