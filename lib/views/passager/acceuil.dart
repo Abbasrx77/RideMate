@@ -65,6 +65,35 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      TextFormField(
+                        controller: _lieuController,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Entrez un lieu";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Lieu (Ex: Akpakpa,Kpondehou)',
+                          border: const OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.blue),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              NoAnimationMaterialPageRoute(
+                                  builder: (context) => const PagePositionPassager(), settings: null));
+                        },
+                      ),
+                      const SizedBox(height: 16),
                       FormField(
                         builder: (FormFieldState<String> state) {
                           return GestureDetector(
@@ -85,11 +114,11 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                                 labelText: 'Heure de départ',
                                 border: const OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
+                                  BorderRadius.all(Radius.circular(10.0)),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                      const BorderSide(color: Colors.blue),
+                                  const BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
@@ -131,11 +160,11 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                                 labelText: 'Date de départ',
                                 border: const OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
+                                  BorderRadius.all(Radius.circular(10.0)),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                      const BorderSide(color: Colors.blue),
+                                  const BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
@@ -152,35 +181,7 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                           );
                         },
                       ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        controller: _lieuController,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Entrez un lieu";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Lieu (Ex: Akpakpa,Kpondehou)',
-                          border: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.blue),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        onTap: (){
-                          Navigator.push(
-                              context,
-                              NoAnimationMaterialPageRoute(
-                                  builder: (context) => const PagePositionPassager(), settings: null));
-                        },
-                      ),
+
                       const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 85.0),

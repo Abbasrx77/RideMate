@@ -87,6 +87,35 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      TextFormField(
+                        controller: _position,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Veuillez entrer votre position";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Position Ex: Cotonou,Akpakpa',
+                          border: const OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.blue),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              NoAnimationMaterialPageRoute(
+                                  builder: (context) => const PagePosition(), settings: null));
+                        },
+                      ),
+                      SizedBox(height: deviceHeight * 0.02),
                       FormField(
                         builder: (FormFieldState<String> state) {
                           return GestureDetector(
@@ -107,11 +136,11 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                                 labelText: 'Heure de départ',
                                 border: const OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
+                                  BorderRadius.all(Radius.circular(10.0)),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                      const BorderSide(color: Colors.blue),
+                                  const BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
@@ -153,11 +182,11 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                                 labelText: 'Date de départ',
                                 border: const OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
+                                  BorderRadius.all(Radius.circular(10.0)),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                      const BorderSide(color: Colors.blue),
+                                  const BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
@@ -172,35 +201,6 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                               ),
                             ),
                           );
-                        },
-                      ),
-                      SizedBox(height: deviceHeight * 0.02),
-                      TextFormField(
-                        controller: _position,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Veuillez entrer votre position";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Position Ex: Cotonou,Akpakpa',
-                          border: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.blue),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        onTap: (){
-                          Navigator.push(
-                              context,
-                              NoAnimationMaterialPageRoute(
-                                  builder: (context) => const PagePosition(), settings: null));
                         },
                       ),
                       /*Autocomplete<String>(
