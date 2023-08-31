@@ -9,7 +9,7 @@ import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
 import 'package:ridemate/views/passager/choix_position_depart.dart';
 import 'package:ridemate/views/passager/inscription.dart';
 import 'package:ridemate/views/shared_views/connexion.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import '/firebase_options.dart';
 
 void main() async {
@@ -22,6 +22,8 @@ void main() async {
     debugShowCheckedModeBanner: false,
     localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
     ],
     supportedLocales: const [
       Locale('fr'),
@@ -30,6 +32,7 @@ void main() async {
     title: 'Flutter Demo',
     theme: ThemeData(
       primarySwatch: Colors.blue,
+      textTheme: GoogleFonts.robotoTextTheme(),
     ),
     navigatorObservers: [DismissKeyboardOnBack()],
     routes: {

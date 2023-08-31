@@ -68,21 +68,24 @@ class _TrajetsTrouvesPassagerState extends State<TrajetsTrouvesPassager> {
                 future: _trajetstrouvesFuture, // the Future you want to work with
                 builder: (BuildContext context, AsyncSnapshot<List<Trajet>> snapshot) {
                   if (snapshot.hasData) {
-                    // Map the data if it is non-null
-                    return ListView(
-                      children: snapshot.data!.map((trajet) {
-                        return RechercherCard(
-                          date: trajet.date,
-                          heure: trajet.heure,
-                          lieuDepart: trajet.lieuDepart,
-                          lieuArrivee: trajet.lieuArrivee,
-                          description: trajet.description,
-                          nomPrenom: trajet.nomPrenom,
-                          typeVehicule: trajet.typeVehicule,
-                          nombrePlaces: trajet.nombrePlaces,
-                        );
-                      }).toList(),
-                    );
+                    if(snapshot.data!.isNotEmpty){
+                      return ListView(
+                        children: snapshot.data!.map((trajet) {
+                          return RechercherCard(
+                            date: trajet.date,
+                            heure: trajet.heure,
+                            lieuDepart: trajet.lieuDepart,
+                            lieuArrivee: trajet.lieuArrivee,
+                            description: trajet.description,
+                            nomPrenom: trajet.nomPrenom,
+                            typeVehicule: trajet.typeVehicule,
+                            nombrePlaces: trajet.nombrePlaces,
+                          );
+                        }).toList(),
+                      );
+                    }else{
+                      return const Center(child: Text("Aucun trajet correspondant trouvé"));
+                    }
                   } else {
                     // If data is null, return a spinner
                     return Center(child: CircularProgressIndicator());

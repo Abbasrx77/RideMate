@@ -127,7 +127,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 Expanded(
                   child: Text(
                     widget.lieuDepart ?? '',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 )
               ],
@@ -148,9 +148,11 @@ class _ReservationCardState extends State<ReservationCard> {
                   color: Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(
-                  widget.lieuArrivee ?? '',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                    widget.lieuArrivee ?? '',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
@@ -204,7 +206,7 @@ class _ReservationCardState extends State<ReservationCard> {
                       setState(() {
                         isTrajetDeleted = true;
                       });
-                      final response = await apiService.delete('traiter_reservation',body: body);
+                      await apiService.delete('traiter_reservation',body: body);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
@@ -244,13 +246,13 @@ class _ReservationCardState extends State<ReservationCard> {
                       var fcm_Token = data[0];
                       var uid = data[1];
 
-                      print(data);
-                      print(fcm_Token);
-                      print(uid);
+                      //print(data);
+                      //print(fcm_Token);
+                      //print(uid);
 
 
-                      final String title = 'Réservation acceptée';
-                      final String body1 = 'Votre réservation a été acceptée';
+                      const String title = 'Réservation acceptée';
+                      const String body1 = 'Votre réservation a été acceptée';
                       final String fcmToken = '$fcm_Token';
 
                       final Map<String, dynamic> data1 = {
@@ -264,7 +266,7 @@ class _ReservationCardState extends State<ReservationCard> {
                       apiService.notify_reservation(dataToSend: data1);
                       storeValue(uid);
                       final acx = await storage.read(key: 'uid');
-                      print(acx);
+                      //print(acx);
                       Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const Messages(), settings: null));
                     },
                     style: ElevatedButton.styleFrom(

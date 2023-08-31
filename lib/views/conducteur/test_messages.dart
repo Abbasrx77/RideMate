@@ -44,14 +44,12 @@ class _MessagesState extends State<Messages> {
     double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: Colors.white,
         title: Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: SizedBox(
-            height: deviceWidth * 0.1,// you can increase or decrease the height as you need
-            child: Image.asset('assets/main_logo.png'),
+          padding: EdgeInsets.only(left: deviceWidth * 0.12),
+          child: const Text(
+            "Mes messages",
+            style: TextStyle(color: Colors.black),
           ),
         ),
       ),
@@ -108,7 +106,7 @@ class _MessagesState extends State<Messages> {
     return
       Column(
         children: [
-          const Center(
+          /*const Center(
             child: Padding(
               padding: EdgeInsets.only(top: 40.0),
               child: Text(
@@ -119,7 +117,7 @@ class _MessagesState extends State<Messages> {
                 ),
               ),
             ),
-          ),
+          ),*/
           Expanded(
           child: FutureBuilder(
             future: getUidList(), //fetch uid list and wait

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
-import 'package:ridemate/utilities/error_dialog.dart';
 
 final apiService = ApiService();
 
@@ -50,7 +49,7 @@ class _TrajetCardState extends State<TrajetCard> {
     setState(() {
       isTrajetDeleted = true;
     });
-    final response = await apiService.delete('supprimer_offres',body: body);
+    await apiService.delete('supprimer_offres',body: body);
     //await showErrorDialog(context, "Données : ${response.body}");
   }
 
@@ -105,7 +104,7 @@ class _TrajetCardState extends State<TrajetCard> {
                 Expanded(
                   child: Text(
                     widget.lieuDepart ?? '',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 )
               ],
@@ -126,9 +125,11 @@ class _TrajetCardState extends State<TrajetCard> {
                   color: Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(
-                  widget.lieuArrivee ?? '',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                    widget.lieuArrivee ?? '',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
@@ -137,10 +138,10 @@ class _TrajetCardState extends State<TrajetCard> {
               children: [
                 Padding(
                   padding: EdgeInsets.zero,
-                  child: Text(
-                    'Description',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                    child: Text(
+                      'Description',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

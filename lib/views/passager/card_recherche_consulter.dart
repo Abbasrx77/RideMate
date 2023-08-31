@@ -87,7 +87,7 @@ class _RechercherCardState extends State<RechercherCard> {
                 Expanded(
                   child: Text(
                     widget.lieuDepart,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 )
               ],
@@ -108,9 +108,11 @@ class _RechercherCardState extends State<RechercherCard> {
                   color: Colors.blue,
                 ),
                 const SizedBox(width: 8),
-                Text(
-                  widget.lieuArrivee,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                    widget.lieuArrivee,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),

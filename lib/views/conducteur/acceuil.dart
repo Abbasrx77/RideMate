@@ -150,8 +150,8 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                                     ? ''
                                     : _heureController.text,
                                 style: _heureController.text.isEmpty
-                                    ? TextStyle(color: Colors.grey)
-                                    : TextStyle(color: Colors.black),
+                                    ? const TextStyle(color: Colors.grey)
+                                    : const TextStyle(color: Colors.black),
                               ),
                             ),
                           );
@@ -196,8 +196,8 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                                     ? ''
                                     : _dateController.text,
                                 style: _dateController.text.isEmpty
-                                    ? TextStyle(color: Colors.grey)
-                                    : TextStyle(color: Colors.black),
+                                    ? const TextStyle(color: Colors.grey)
+                                    : const TextStyle(color: Colors.black),
                               ),
                             ),
                           );
@@ -296,8 +296,7 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
                           final date_depart = _dateController.text.toString();
                           final position = _position.text;
                           final description = _description.text;
-                          final eneam =
-                              await storage.read(key: 'eneam') ?? 'test';
+                          final eneam = await storage.read(key: 'eneam') ?? 'test';
 
                           Map<String, String?> body = {
                             'heure_depart': heure_depart,

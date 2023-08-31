@@ -37,48 +37,51 @@ class _ReservationObtenueState extends State<ReservationObtenue> {
     double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
+          backgroundColor: Colors.white,
           title: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: SizedBox(
-              height: deviceWidth * 0.1,
-              child: Image.asset('assets/main_logo.png'),
+            padding: EdgeInsets.only(left: deviceWidth * 0.10),
+            child: const Text(
+              "Mes réservations",
+              style: TextStyle(color: Colors.black,),
             ),
           ),
         ),
         body: Column(
           children: [
+            /*SizedBox(height: deviceHeight * 0.05,),
             const Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(top: 20.0),
               child: Text('Réservations obtenues',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
+            ),*/
             Expanded(
               child: FutureBuilder<List<Trajet>>(
                 future: _trajetsFuture, // the Future you want to work with
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Trajet>> snapshot) {
                   if (snapshot.hasData) {
-                    // Map the data if it is non-null
-                    return ListView(
-                      children: snapshot.data!.map((trajet) {
-                        return ReservationCard(
-                          date: trajet.date,
-                          heure: trajet.heure,
-                          lieuDepart: trajet.lieuDepart,
-                          lieuArrivee: trajet.lieuArrivee,
-                          nomPrenom: trajet.nomPrenom,
-                          typeVehicule: trajet.typeVehicule,
-                          nombrePlaces: trajet.nombrePlaces,
-                        );
-                      }).toList(),
-                    );
+                    if(snapshot.data!.isNotEmpty){
+                      return ListView(
+                        children: snapshot.data!.map((trajet) {
+                          return ReservationCard(
+                            date: trajet.date,
+                            heure: trajet.heure,
+                            lieuDepart: trajet.lieuDepart,
+                            lieuArrivee: trajet.lieuArrivee,
+                            nomPrenom: trajet.nomPrenom,
+                            typeVehicule: trajet.typeVehicule,
+                            nombrePlaces: trajet.nombrePlaces,
+                          );
+                        }).toList(),
+                      );
+                    }else{
+                      return const Center(child: Text("Vous n'avez obtenu aucune réservation"));
+                    }
                   } else {
                     // If data is null, return a spinner
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
+                  return const Center();
                 },
               ),
             ),
