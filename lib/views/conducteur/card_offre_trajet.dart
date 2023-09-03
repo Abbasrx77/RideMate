@@ -171,6 +171,7 @@ class _TrajetCardState extends State<TrajetCard> {
                       '${widget.typeVehicule} - ${widget.nombrePlaces} places disponibles',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: 13
                       ),
                     ),
                   ),

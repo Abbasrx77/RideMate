@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/utilities/succes_dialog.dart';
+import 'package:ridemate/views/conducteur/ReportConducteur.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
 import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
@@ -42,7 +43,7 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImage(AssetImage('assets/img1.jpg'), context);
+    precacheImage(const AssetImage('assets/img1.jpg'), context);
   }
   Future<void> loadConducteurInfo() async {
     try {
@@ -69,7 +70,7 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
-    precacheImage(AssetImage("assets/img1-min.jpg"), context);
+    precacheImage(const AssetImage("assets/img1-min.jpg"), context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -259,19 +260,41 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                             const SizedBox(
                               height: 10,
                             ),
+                            Row(
+                              children: [
+                                const Spacer(),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ModificationPage(residence: residence,vehicule: typeVehicule,place: nombrePlaces,email: email,)),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Modifier vos informations personnelles',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
                             TextButton(
                               onPressed: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ModificationPage(residence: residence,vehicule: typeVehicule,place: nombrePlaces,email: email,)),
+                                      builder: (context) => const ReportConducteur()),
                                 );
                               },
                               child: const Text(
-                                'Modifier vos informations personnelles',
+                                'Signaler un problème',
                                 style: TextStyle(
                                   color: Colors.blue,
-                                  fontSize: 16,
+                                  fontSize: 14,
                                 ),
                               ),
                             ),
@@ -492,7 +515,7 @@ class _ModificationPageState extends State<ModificationPage> {
                           }
                         }
                       },
-                      child: Text('Enregistrer les modifications'),
+                      child: const Text('Enregistrer les modifications'),
                     ),
                   ],
                 ),

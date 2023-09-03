@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/views/conducteur/test_messages.dart';
+import 'package:ridemate/views/passager/ReportPassager.dart';
 import 'package:ridemate/views/passager/acceuil.dart';
 import 'package:ridemate/views/passager/reservation_envoyee.dart';
 import 'package:ridemate/views/passager/test_messages_passager.dart';
@@ -219,19 +220,41 @@ class _PassagerProfilPageState extends State<PassagerProfilPage> {
                             const SizedBox(
                               height: 10,
                             ),
+                            Row(
+                              children: [
+                                const Spacer(),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ModificationPassagerPage(residence: residence, email: email)),
+                                    );
+                                  },
+                                  child: const Text(
+                                    'Modifier vos informations personnelles',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
                             TextButton(
                               onPressed: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ModificationPassagerPage(residence: residence,email: email,)),
+                                      builder: (context) => const ReportPassager()),
                                 );
                               },
                               child: const Text(
-                                'Modifier vos informations personnelles',
+                                'Signaler un problème',
                                 style: TextStyle(
                                   color: Colors.blue,
-                                  fontSize: 16,
+                                  fontSize: 14,
                                 ),
                               ),
                             ),

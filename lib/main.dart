@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ridemate/api/firebase_api.dart';
 import 'package:ridemate/routes/routes_constants.dart';
+import 'package:ridemate/views/conducteur/ReportConducteur.dart';
 import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/inscription.dart';
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';

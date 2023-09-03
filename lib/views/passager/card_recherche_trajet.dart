@@ -196,6 +196,7 @@ class _RechercherCardState extends State<RechercherCard> {
                       '${widget.typeVehicule} - ${widget.nombrePlaces} places disponibles',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: 13
                       ),
                     ),
                   ),

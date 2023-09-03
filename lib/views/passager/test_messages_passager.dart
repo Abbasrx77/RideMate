@@ -117,7 +117,7 @@ class _MessagesPassagerState extends State<MessagesPassager> {
                 } else if (snapshot.hasError) {
                   return const Text('Erreur');
                 } else if (snapshot.data!.isEmpty) { //If uid list is empty, return specific widget
-                  return const Text('Aucun utilisateur');
+                  return const Center(child: Text('Aucun utilisateur'));
                 } else {
                   return
                     Padding(

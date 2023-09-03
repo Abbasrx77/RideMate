@@ -175,6 +175,7 @@ class _ReservationCardState extends State<ReservationCard> {
                       '${widget.typeVehicule} - ${widget.nombrePlaces} places disponibles',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: 12
                       ),
                     ),
                   ),
@@ -273,7 +274,7 @@ class _ReservationCardState extends State<ReservationCard> {
                       backgroundColor: Colors.blue,
                     ),
                     child: const Text(
-                      'Acepter',
+                      'Accepter',
                       //style: TextStyle(color: Colors.red, background: ),
                     ),
                   ),
