@@ -115,7 +115,7 @@ class _PassagerProfilPageState extends State<PassagerProfilPage> {
                       '$nom $prenom',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                        fontSize: 18,
                       ),
                     ),
                   ],

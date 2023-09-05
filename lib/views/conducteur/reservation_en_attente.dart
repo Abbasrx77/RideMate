@@ -61,18 +61,24 @@ class _ReservationObtenueState extends State<ReservationObtenue> {
                     AsyncSnapshot<List<Trajet>> snapshot) {
                   if (snapshot.hasData) {
                     if(snapshot.data!.isNotEmpty){
-                      return ListView(
-                        children: snapshot.data!.map((trajet) {
-                          return ReservationCard(
-                            date: trajet.date,
-                            heure: trajet.heure,
-                            lieuDepart: trajet.lieuDepart,
-                            lieuArrivee: trajet.lieuArrivee,
-                            nomPrenom: trajet.nomPrenom,
-                            typeVehicule: trajet.typeVehicule,
-                            nombrePlaces: trajet.nombrePlaces,
-                          );
-                        }).toList(),
+                      return Center(
+                        child: SizedBox(
+                          height: deviceHeight * 0.8,
+                          width: deviceWidth * 0.95,
+                          child: ListView(
+                            children: snapshot.data!.map((trajet) {
+                              return ReservationCard(
+                                date: trajet.date,
+                                heure: trajet.heure,
+                                lieuDepart: trajet.lieuDepart,
+                                lieuArrivee: trajet.lieuArrivee,
+                                nomPrenom: trajet.nomPrenom,
+                                typeVehicule: trajet.typeVehicule,
+                                nombrePlaces: trajet.nombrePlaces,
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       );
                     }else{
                       return const Center(child: Text("Vous n'avez obtenu aucune réservation"));

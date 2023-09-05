@@ -177,7 +177,7 @@ class _MessagesPassagerState extends State<MessagesPassager> {
           child: ListTile(
             title: Text(
               '$email',
-              style: const TextStyle(fontSize: 18, color: Colors.black,fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, color: Colors.black,fontWeight: FontWeight.bold),
             ),
             onTap: () {
               //pass the clicked user's EMAIL to the chat page

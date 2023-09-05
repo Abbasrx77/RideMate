@@ -116,7 +116,7 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
                       '$nom $prenom',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                        fontSize: 18,
                       ),
                     ),
                   ],

@@ -50,6 +50,8 @@ class _TrajetsTrouvesPassagerState extends State<TrajetsTrouvesPassager> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        centerTitle: true,
+        title: Text("Trajets trouvés",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: (){
@@ -59,29 +61,35 @@ class _TrajetsTrouvesPassagerState extends State<TrajetsTrouvesPassager> {
       ),
         body: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('Trajets trouvés', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
+            // const Padding(
+            //   padding: EdgeInsets.all(8.0),
+            //   child: Text('Trajets trouvés', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            // ),
             Expanded(
               child: FutureBuilder<List<Trajet>>(
                 future: _trajetstrouvesFuture, // the Future you want to work with
                 builder: (BuildContext context, AsyncSnapshot<List<Trajet>> snapshot) {
                   if (snapshot.hasData) {
                     if(snapshot.data!.isNotEmpty){
-                      return ListView(
-                        children: snapshot.data!.map((trajet) {
-                          return RechercherCard(
-                            date: trajet.date,
-                            heure: trajet.heure,
-                            lieuDepart: trajet.lieuDepart,
-                            lieuArrivee: trajet.lieuArrivee,
-                            description: trajet.description,
-                            nomPrenom: trajet.nomPrenom,
-                            typeVehicule: trajet.typeVehicule,
-                            nombrePlaces: trajet.nombrePlaces,
-                          );
-                        }).toList(),
+                      return Center(
+                        child: SizedBox(
+                          width: deviceWidth * 0.95,
+                          //height: deviceHeight * 0.8,
+                          child: ListView(
+                            children: snapshot.data!.map((trajet) {
+                              return RechercherCard(
+                                date: trajet.date,
+                                heure: trajet.heure,
+                                lieuDepart: trajet.lieuDepart,
+                                lieuArrivee: trajet.lieuArrivee,
+                                description: trajet.description,
+                                nomPrenom: trajet.nomPrenom,
+                                typeVehicule: trajet.typeVehicule,
+                                nombrePlaces: trajet.nombrePlaces,
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       );
                     }else{
                       return const Center(child: Text("Aucun trajet correspondant trouvé"));

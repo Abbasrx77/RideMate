@@ -58,14 +58,8 @@ class _AcceuilConducteurPageWidgetState extends State<AcceuilConducteurPageWidge
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: SizedBox(
-            height: deviceWidth * 0.1,
-            // you can increase or decrease the height as you need
-            child: Image.asset('assets/main_logo.png'),
-          ),
-        ),
+        centerTitle: true,
+        title: Image.asset('assets/main_logo.png'),
       ),
       body: Container(
         color: Colors.transparent,

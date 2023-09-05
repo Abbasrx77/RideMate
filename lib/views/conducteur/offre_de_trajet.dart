@@ -62,19 +62,25 @@ class _OffreDeTrajetState extends State<OffreDeTrajet> {
                     AsyncSnapshot<List<Trajet>> snapshot) {
                   if (snapshot.hasData) {
                     if(snapshot.data!.isNotEmpty){
-                      return ListView(
-                        children: snapshot.data!.map((trajet) {
-                          return TrajetCard(
-                            date: trajet.date,
-                            heure: trajet.heure,
-                            lieuDepart: trajet.lieuDepart,
-                            lieuArrivee: trajet.lieuArrivee,
-                            description: trajet.description,
-                            nomPrenom: trajet.nomPrenom,
-                            typeVehicule: trajet.typeVehicule,
-                            nombrePlaces: trajet.nombrePlaces,
-                          );
-                        }).toList(),
+                      return Center(
+                        child: SizedBox(
+                          width: deviceWidth * 0.95,
+                          height: deviceHeight * 0.8,
+                          child: ListView(
+                            children: snapshot.data!.map((trajet) {
+                              return TrajetCard(
+                                date: trajet.date,
+                                heure: trajet.heure,
+                                lieuDepart: trajet.lieuDepart,
+                                lieuArrivee: trajet.lieuArrivee,
+                                description: trajet.description,
+                                nomPrenom: trajet.nomPrenom,
+                                typeVehicule: trajet.typeVehicule,
+                                nombrePlaces: trajet.nombrePlaces,
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       );
                     }else{
                       return const Center(child: Text("Vous n'avez aucun trajet publié"));

@@ -33,7 +33,6 @@ void main() async {
     title: 'Flutter Demo',
     theme: ThemeData(
       primarySwatch: Colors.blue,
-      textTheme: GoogleFonts.robotoTextTheme(),
     ),
     navigatorObservers: [DismissKeyboardOnBack()],
     routes: {

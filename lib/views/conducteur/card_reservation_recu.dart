@@ -127,7 +127,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 Expanded(
                   child: Text(
                     widget.lieuDepart ?? '',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                   ),
                 )
               ],
@@ -151,7 +151,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 Expanded(
                   child: Text(
                     widget.lieuArrivee ?? '',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                   ),
                 ),
               ],
@@ -161,7 +161,7 @@ class _ReservationCardState extends State<ReservationCard> {
               children: [
                 Text(
                   widget.nomPrenom ?? '',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                 ),
                 const Spacer(),
                 Container(
@@ -185,8 +185,9 @@ class _ReservationCardState extends State<ReservationCard> {
             const SizedBox(height: 20),
             Row(
               children: <Widget>[
+                Spacer(),
                 SizedBox(
-                  width: 150,
+                  width: 100,
                   child: ElevatedButton(
                     //onPressed: _supprimerTrajet,
                     onPressed: () async{
@@ -214,13 +215,14 @@ class _ReservationCardState extends State<ReservationCard> {
                     ),
                     child: const Text(
                       'Refuser',
-                      //style: TextStyle(color: Colors.red, background: ),
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                 ),
                 const SizedBox(width: 20),
+                Spacer(),
                 SizedBox(
-                  width: 150,
+                  width: 100,
                   child: ElevatedButton(
                     //onPressed: _supprimerTrajet,
                     onPressed: () async{
@@ -275,10 +277,11 @@ class _ReservationCardState extends State<ReservationCard> {
                     ),
                     child: const Text(
                       'Accepter',
-                      //style: TextStyle(color: Colors.red, background: ),
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                 ),
+                Spacer(),
               ],
             ),
           ],

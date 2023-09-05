@@ -106,7 +106,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 Expanded(
                   child: Text(
                     widget.lieuDepart ?? '',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                   ),
                 )
               ],
@@ -129,7 +129,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 const SizedBox(width: 8),
                 Text(
                   widget.lieuArrivee ?? '',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                 ),
               ],
             ),
@@ -150,14 +150,14 @@ class _ReservationCardState extends State<ReservationCard> {
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: Text(widget.description ?? ''),
+              child: Text(widget.description ?? '',style: TextStyle(fontSize: 12),),
             ),
             const SizedBox(height: 20),
             Row(
               children: [
                 Text(
                   widget.nomPrenom ?? '',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                 ),
                 const Spacer(),
                 Container(
@@ -171,7 +171,7 @@ class _ReservationCardState extends State<ReservationCard> {
                       '${widget.typeVehicule} - ${widget.nombrePlaces} places disponibles',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 13
+                        fontSize: 12
                       ),
                     ),
                   ),

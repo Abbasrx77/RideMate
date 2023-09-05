@@ -129,7 +129,7 @@ class _RechercherCardState extends State<RechercherCard> {
                 Expanded(
                   child: Text(
                     widget.lieuDepart ?? '',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                   ),
                 )
               ],
@@ -153,7 +153,7 @@ class _RechercherCardState extends State<RechercherCard> {
                 Expanded(
                   child: Text(
                     widget.lieuArrivee ?? '',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                   ),
                 ),
               ],
@@ -175,14 +175,14 @@ class _RechercherCardState extends State<RechercherCard> {
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: Text(widget.description ?? ''),
+              child: Text(widget.description ?? '',style: TextStyle(fontSize: 12),),
             ),
             const SizedBox(height: 20),
             Row(
               children: [
                 Text(
                   widget.nomPrenom ?? '',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                 ),
                 const Spacer(),
                 Container(
@@ -196,7 +196,7 @@ class _RechercherCardState extends State<RechercherCard> {
                       '${widget.typeVehicule} - ${widget.nombrePlaces} places disponibles',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 13
+                        fontSize: 12
                       ),
                     ),
                   ),
@@ -213,7 +213,7 @@ class _RechercherCardState extends State<RechercherCard> {
                 ),
                 child: const Text(
                   'Réserver',
-                  //style: TextStyle(color: Colors.red, background: ),
+                  style: TextStyle(fontSize: 13),
                 ),
               ),
             ),
