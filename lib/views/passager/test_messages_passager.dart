@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/utilities/navigation.dart';
-import 'package:ridemate/views/conducteur/acceuil.dart';
-import 'package:ridemate/views/conducteur/card_offre_trajet.dart';
 import 'package:ridemate/views/passager/acceuil.dart';
 import 'package:ridemate/views/passager/profile_page_passager.dart';
 import 'package:ridemate/views/shared_views/chat_page.dart';
-import 'dart:convert';
 import 'package:ridemate/api/api_service.dart';
 import 'package:ridemate/views/passager/reservation_envoyee.dart';
 
@@ -21,14 +17,13 @@ class MessagesPassager extends StatefulWidget {
 }
 
 class _MessagesPassagerState extends State<MessagesPassager> {
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
   final apiService = ApiService();
 
   Future<List<String>> getUids()async{
     final futureUids = apiService.get_authentification('uids');
-    print("++++++++++++++-----------------------------------++++++++++++++++++++++++++++++++++++++++++++++++++++-----------");
-    print(futureUids);
+    //print("++++++++++++++-----------------------------------++++++++++++++++++++++++++++++++++++++++++++++++++++-----------");
+    //print(futureUids);
     return futureUids;
   }
 

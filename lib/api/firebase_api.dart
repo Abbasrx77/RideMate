@@ -1,15 +1,12 @@
 import 'dart:convert';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get/get.dart';
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async{
-  print("Title: ${message.notification?.title}");
-  print("Body: ${message.notification?.body}");
-  print("Payload: ${message.data}");
+  // print("Title: ${message.notification?.title}");
+  // print("Body: ${message.notification?.body}");
+  // print("Payload: ${message.data}");
 }
 
 class FirebaseApi{

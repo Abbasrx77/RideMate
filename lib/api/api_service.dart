@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ridemate/models/trajet.dart';
@@ -10,7 +9,7 @@ class ApiService {
   //L'ordinateur est connecté à un réseau wifi et fait un partage de connexion au smartphone
   //Veuillez remplacer l'adresse IP de l'ordinateur par "localhost:8000" ou l'adresse du serveur concerné
 
-  final String baseUrl = "http://192.168.0.100:8000/api";
+  final String baseUrl = "http://10.18.12.145:8000/api";
   final storage = const FlutterSecureStorage();
 
   /*Future<String?> getAuthToken(String email, String password) async {
@@ -74,7 +73,7 @@ class ApiService {
       },
       body: jsonEncode(dataToSend),
     );
-    print('${response.statusCode} ${response.body}');
+    //print('${response.statusCode} ${response.body}');
     return response;
   }
 
@@ -181,7 +180,7 @@ class ApiService {
       },
       body: body,
     );
-    print(response.statusCode);
+    //print(response.statusCode);
     return response;
   }
 

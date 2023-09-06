@@ -21,7 +21,6 @@ class AcceuilPassager extends StatefulWidget {
 
 class _AcceuilPassagerState extends State<AcceuilPassager> {
   final storage = const FlutterSecureStorage();
-  int _currentIndex = 0;
 
   @override
   void initState(){
@@ -36,7 +35,6 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
   @override
   Widget build(BuildContext context) {
 
-    double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -122,8 +120,8 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                                     ? ''
                                     : _heureController.text,
                                 style: _heureController.text.isEmpty
-                                    ? TextStyle(color: Colors.grey)
-                                    : TextStyle(color: Colors.black),
+                                    ? const TextStyle(color: Colors.grey)
+                                    : const TextStyle(color: Colors.black),
                               ),
                             ),
                           );
@@ -168,8 +166,8 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                                     ? ''
                                     : _dateController.text,
                                 style: _dateController.text.isEmpty
-                                    ? TextStyle(color: Colors.grey)
-                                    : TextStyle(color: Colors.black),
+                                    ? const TextStyle(color: Colors.grey)
+                                    : const TextStyle(color: Colors.black),
                               ),
                             ),
                           );
@@ -204,7 +202,7 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
                         ),
                         // Add more style properties as needed
                     ),
-                    child: Text('Rechercher'),
+                    child: const Text('Rechercher'),
                   ),
                       ),
                     ],
@@ -274,6 +272,5 @@ class _AcceuilPassagerState extends State<AcceuilPassager> {
         ],
       ),
     );
-    ;
   }
 }

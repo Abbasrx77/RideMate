@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/models/trajet.dart';
-import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/api/api_service.dart';
@@ -44,14 +43,13 @@ class _TrajetsTrouvesPassagerState extends State<TrajetsTrouvesPassager> {
   }
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text("Trajets trouvés",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+        title: const Text("Trajets trouvés",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: (){
@@ -96,7 +94,7 @@ class _TrajetsTrouvesPassagerState extends State<TrajetsTrouvesPassager> {
                     }
                   } else {
                     // If data is null, return a spinner
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                 } ,
               ),

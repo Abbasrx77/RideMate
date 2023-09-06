@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
-import 'package:ridemate/utilities/error_dialog.dart';
 
 final apiService = ApiService();
 
@@ -106,7 +105,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 Expanded(
                   child: Text(
                     widget.lieuDepart ?? '',
-                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                    style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                   ),
                 )
               ],
@@ -129,7 +128,7 @@ class _ReservationCardState extends State<ReservationCard> {
                 const SizedBox(width: 8),
                 Text(
                   widget.lieuArrivee ?? '',
-                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
+                  style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12),
                 ),
               ],
             ),
@@ -150,7 +149,7 @@ class _ReservationCardState extends State<ReservationCard> {
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: Text(widget.description ?? '',style: TextStyle(fontSize: 12),),
+              child: Text(widget.description ?? '',style: const TextStyle(fontSize: 12),),
             ),
             const SizedBox(height: 20),
             Row(

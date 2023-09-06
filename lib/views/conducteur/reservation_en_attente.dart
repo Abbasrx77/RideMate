@@ -18,7 +18,6 @@ class ReservationObtenue extends StatefulWidget {
 class _ReservationObtenueState extends State<ReservationObtenue> {
   final apiService = ApiService();
 
-  int _currentIndex = 0;
   late Future<List<Trajet>> _trajetsFuture;
 
   @override
@@ -87,7 +86,6 @@ class _ReservationObtenueState extends State<ReservationObtenue> {
                     // If data is null, return a spinner
                     return const Center(child: CircularProgressIndicator());
                   }
-                  return const Center();
                 },
               ),
             ),
@@ -124,14 +122,12 @@ class _ReservationObtenueState extends State<ReservationObtenue> {
                 break;
               case 4:
               //A FAIRE APRES
-              case 3:
                 //A FAIRE APRES
                 Navigator.push(
                     context,
                     NoAnimationMaterialPageRoute(
                         builder: (context) => const ConducteurProfilePage(),
                         settings: null));
-                break;
                 break;
             }
           },

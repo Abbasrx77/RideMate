@@ -150,7 +150,7 @@ class _TrajetCardState extends State<TrajetCard> {
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: Text(widget.description ?? '',style: TextStyle(fontSize: 12),),
+              child: Text(widget.description ?? '',style: const TextStyle(fontSize: 12),),
             ),
             const SizedBox(height: 20),
             Row(

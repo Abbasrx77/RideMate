@@ -16,7 +16,6 @@ class ReservationEnvoye extends StatefulWidget {
 
 class _ReservationEnvoyeState extends State<ReservationEnvoye> {
   final apiService = ApiService();
-  int _currentIndex = 0;
   late Future<List<Trajet>> _reservationsFuture;
 
   @override

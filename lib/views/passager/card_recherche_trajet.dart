@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:ridemate/api/api_service.dart';
-import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final apiService = ApiService();
-final storage = const FlutterSecureStorage();
+const storage = FlutterSecureStorage();
 
 class RechercherCard extends StatefulWidget {
   final String? date;
@@ -64,8 +62,8 @@ class _RechercherCardState extends State<RechercherCard> {
     var fcm_Token = data;
 
 
-    final String title = 'Réservation obtenue';
-    final String body1 = 'Vous venez de recevoir une réservation';
+    const String title = 'Réservation obtenue';
+    const String body1 = 'Vous venez de recevoir une réservation';
     final String fcmToken = '$fcm_Token';
 
     final Map<String, dynamic> data1 = {
@@ -175,7 +173,7 @@ class _RechercherCardState extends State<RechercherCard> {
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: Text(widget.description ?? '',style: TextStyle(fontSize: 12),),
+              child: Text(widget.description ?? '',style: const TextStyle(fontSize: 12),),
             ),
             const SizedBox(height: 20),
             Row(

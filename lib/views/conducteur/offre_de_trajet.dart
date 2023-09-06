@@ -18,7 +18,6 @@ class OffreDeTrajet extends StatefulWidget {
 class _OffreDeTrajetState extends State<OffreDeTrajet> {
   final apiService = ApiService();
 
-  int _currentIndex = 0;
   late Future<List<Trajet>> _trajetsFuture;
 
   @override

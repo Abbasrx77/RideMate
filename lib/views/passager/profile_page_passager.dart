@@ -4,13 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/utilities/navigation.dart';
 import 'package:ridemate/utilities/succes_dialog.dart';
-import 'package:ridemate/views/conducteur/acceuil.dart';
-import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
-import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
-import 'package:intl/intl.dart';
-
 import 'package:ridemate/api/api_service.dart';
-import 'package:ridemate/views/conducteur/test_messages.dart';
 import 'package:ridemate/views/passager/ReportPassager.dart';
 import 'package:ridemate/views/passager/acceuil.dart';
 import 'package:ridemate/views/passager/reservation_envoyee.dart';
@@ -26,7 +20,6 @@ class PassagerProfilPage extends StatefulWidget {
 class _PassagerProfilPageState extends State<PassagerProfilPage> {
   final storage = const FlutterSecureStorage();
   final apiService = ApiService();
-  int _currentIndex = 0;
   double noteValue = 3.5;
 
   String nom = '';
@@ -44,7 +37,7 @@ class _PassagerProfilPageState extends State<PassagerProfilPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImage(AssetImage('assets/img1.jpg'), context);
+    precacheImage(const AssetImage('assets/img1.jpg'), context);
   }
   Future<void> loadConducteurInfo() async {
     try {
@@ -61,7 +54,7 @@ class _PassagerProfilPageState extends State<PassagerProfilPage> {
       });
     } catch (e) {
       // Gérer les erreurs ici
-      print('Erreur lors du chargement des informations du conducteur : $e');
+      //print('Erreur lors du chargement des informations du conducteur : $e');
     }
   }
 
@@ -69,7 +62,7 @@ class _PassagerProfilPageState extends State<PassagerProfilPage> {
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
-    precacheImage(AssetImage("assets/img1-min.jpg"), context);
+    precacheImage(const AssetImage("assets/img1-min.jpg"), context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -427,7 +420,7 @@ class _ModificationPassagerPageState extends State<ModificationPassagerPage> {
                           }
                         }
                       },
-                      child: Text('Enregistrer les modifications'),
+                      child: const Text('Enregistrer les modifications'),
                     ),
                   ],
                 ),

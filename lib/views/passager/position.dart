@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ridemate/components/location_list_tile.dart';
-
-import 'package:ridemate/constants.dart';
 
 import 'package:ridemate/components/network_utils.dart';
 import 'package:ridemate/models/autocomplate_prediction.dart';
 import 'package:ridemate/models/place_auto_complate_response.dart';
-import 'package:ridemate/utilities/error_dialog.dart';
 import 'package:ridemate/utilities/navigation.dart';
-import 'package:ridemate/views/conducteur/acceuil.dart';
-import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
 import 'package:ridemate/views/passager/acceuil.dart';
 
 class PagePositionPassager extends StatefulWidget {

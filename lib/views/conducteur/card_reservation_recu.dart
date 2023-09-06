@@ -185,7 +185,7 @@ class _ReservationCardState extends State<ReservationCard> {
             const SizedBox(height: 20),
             Row(
               children: <Widget>[
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 100,
                   child: ElevatedButton(
@@ -220,7 +220,7 @@ class _ReservationCardState extends State<ReservationCard> {
                   ),
                 ),
                 const SizedBox(width: 20),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 100,
                   child: ElevatedButton(
@@ -268,7 +268,7 @@ class _ReservationCardState extends State<ReservationCard> {
                       };
                       apiService.notify_reservation(dataToSend: data1);
                       storeValue(uid);
-                      final acx = await storage.read(key: 'uid');
+                      //final acx = await storage.read(key: 'uid');
                       //print(acx);
                       Navigator.pushReplacement(context, NoAnimationMaterialPageRoute(builder: (context) => const Messages(), settings: null));
                     },
@@ -281,7 +281,7 @@ class _ReservationCardState extends State<ReservationCard> {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
           ],

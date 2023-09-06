@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ridemate/utilities/navigation.dart';
@@ -7,7 +6,6 @@ import 'package:ridemate/views/conducteur/acceuil.dart';
 import 'package:ridemate/views/conducteur/profile_page_conducteur.dart';
 import 'package:ridemate/views/shared_views/chat_page.dart';
 import 'dart:convert';
-
 import 'package:ridemate/views/conducteur/offre_de_trajet.dart';
 import 'package:ridemate/views/conducteur/reservation_en_attente.dart';
 
@@ -20,8 +18,7 @@ class Messages extends StatefulWidget {
 
 class _MessagesState extends State<Messages> {
 
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   List<String> uids = [];
 
@@ -40,7 +37,6 @@ class _MessagesState extends State<Messages> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(

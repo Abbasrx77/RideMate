@@ -23,7 +23,6 @@ class ConducteurProfilePage extends StatefulWidget {
 class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
   final storage = const FlutterSecureStorage();
   final apiService = ApiService();
-  int _currentIndex = 0;
   double noteValue = 3.5;
 
   String nom = '';
@@ -62,7 +61,7 @@ class _ConducteurProfilePageState extends State<ConducteurProfilePage> {
       });
     } catch (e) {
       // Gérer les erreurs ici
-      print('Erreur lors du chargement des informations du conducteur : $e');
+      //print('Erreur lors du chargement des informations du conducteur : $e');
     }
   }
 
